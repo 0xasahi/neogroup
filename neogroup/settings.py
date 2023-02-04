@@ -263,6 +263,6 @@ RQ_QUEUES = {
 RQ_SHOW_ADMIN_LINK = True
 
 try:
-    from local_settings import *
+    from neogroup.local_settings import *
 except ImportError:
     pass
