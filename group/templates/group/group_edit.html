@@ -1,0 +1,10 @@
+{% extends "group/base.html" %}
+
+{% block title %}{{group.name}}{% endblock %}
+
+{% block content %}
+<form method="post" class="group-form" enctype="multipart/form-data">{% csrf_token %}
+    {{ form }}
+    <input type="submit" value="提交" />
+</form>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% load static %}
+{% load i18n %}
+{% load admin_url %}
+{% load mastodon %}
+{% load oauth_token %}
+{% load truncate %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.svg">
+    <meta property="og:title" content="{{ site_name }}">
+    <meta name="description" property="og:description" content="{{ site_name }}致力于为联邦宇宙居民提供一个自由、开放、互联的小组产品">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/logo_square.png' %}">
+
+    <title>{{ site_name }} - {%block title%}{%endblock%}</title>
+
+    {% include "common_libs.html" with jquery=1 %}
+
+    <script src="{% static 'js/mastodon.js' %}" defer></script>
+    <script src="{% static 'js/home.js' %}" defer></script>
+</head>
+
+<body>
+<div id="page-wrapper">
+    <div id="content-wrapper">
+        {% include "partial/_navbar.html" with current="home" %}
+        <section id="content">
+            <div class="grid grid--reverse-order">
+                <div class="grid__main grid__main--reverse-order">
+                    <div class="main-section-wrapper sortable">
+                        {%block content%}
+                        {%endblock%}
+                    </div>
+                </div>
+                {% block sidebar %}
+                {% endblock %}
+            </div>
+        </section>
+    </div>
+    {% include "partial/_footer.html" %}
+</div>
+
+</body>
+</html>

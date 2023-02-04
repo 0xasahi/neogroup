@@ -1,0 +1,47 @@
+{% extends "group/base.html" %}
+{% block title %}{{group.name}}{% endblock %}
+
+{% block content %}
+{% load static %}
+<script>
+    $(document).ready( function() {
+
+    $(".markdownx-preview").hide();
+    $(".markdownx textarea").attr("placeholder", "从剪贴板粘贴或者拖拽文件至编辑框即可插入图片");
+
+    $(".topic-form__preview-button").on('click', function() {
+        if ($(".markdownx-preview").is(":visible")) {
+            $(".topic-form__preview-button").text("预览");
+            $(".markdownx-preview").hide();
+            $(".markdownx textarea").show();
+        } else {
+            $(".topic-form__preview-button").text("编辑");
+            $(".markdownx-preview").show();
+            $(".markdownx textarea").hide();
+        }
+    });
+});
+</script>
+<form method="post" class="review-form">{% csrf_token %}
+    {{ form.title }}
+    <span class="float-right">
+        <span class="topic-form__preview-button">预览</span>
+    </span>
+    <div id="rawContent">
+    {{ form.description }}
+    </div>
+    <div class="review-form__share-checkbox">
+        {{ form.share_to_mastodon }}{{ form.share_to_mastodon.label }}
+    </div>
+<input type="submit" value="提交" />
+<script src="{% static 'markdownx/js/markdownx.min.js' %}"></script>
+</form>
+{% endblock %}
+
+{% block sidebar %}
+{% include "group/sidebar_group.html" %}
+{% endblock %}
+
+{% block footer %}
+{% include "group/footer.html" %}
+{% endblock %}

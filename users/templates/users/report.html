@@ -1,0 +1,60 @@
+{% load static %}
+{% load i18n %}
+{% load admin_url %}
+{% load mastodon %}
+{% load oauth_token %}
+{% load truncate %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site_name }} - {% trans '举报用户' %}</title>
+    <script src="https://cdn.staticfile.org/jquery/3.6.1/jquery.min.js"></script>
+    <script src="{% static 'js/create_update.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/boofilsic.min.css' %}">
+</head>
+
+<body>
+    <div id="page-wrapper">
+        <div id="content-wrapper">
+            {% include "partial/_navbar.html" %}
+        
+            <section id="content">
+                <div class="grid">
+                    <div class="single-section-wrapper" id="main">
+                        <form action="{% url 'users:report' %}" method="post" enctype="multipart/form-data" class="report-form">
+                            {% csrf_token %}
+                            {{ form }}
+                            <input class="button" type="submit" value="{% trans '提交' %}">
+                        </form>
+                    </div>
+                    
+                </div>
+            </section>
+        </div>
+        {% include "partial/_footer.html" %}
+    </div>
+
+    
+        
+    <script>
+
+        // preview uploaded pic
+        $("input[type='file']").change(function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#previewImage').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(this.files[0]);
+            }
+        });        
+    </script>
+</body>
+
+
+</html>

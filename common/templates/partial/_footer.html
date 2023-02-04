@@ -1,0 +1,29 @@
+<footer class="footer">
+    <div class="grid">
+        <div class="footer__border">
+            {% if social_link %}
+            <a class="footer__link" target="_blank" href="{{ social_link }}">关注我们</a>
+            {% endif %}
+            {% if support_link %}
+            <a class="footer__link" target="_blank" href="{{ support_link }}">问题反馈</a>
+            {% endif %}
+            <a class="footer__link" target="_blank" href="{{repo_link}}">Source</a>
+            <a class="footer__link" target="_blank" href="{{matrix_link}}">Matrix</a>
+            {% if donation_link %}
+            <a class="footer__link" target="_blank" href="{{ donation_link }}">Donate</a>
+            {% endif %}
+        </div>
+    </div>
+</footer>
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{google_analytics_id}}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '{{google_analytics_id}}');
+</script>
+

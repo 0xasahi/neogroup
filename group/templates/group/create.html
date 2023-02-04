@@ -1,0 +1,35 @@
+{% extends "group/base.html" %}
+{% block title %}申请创建小组{% endblock %}
+
+{% block content %}
+<h1>创建小组</h1>
+<div class="grid-16-8 clearfix">
+    <div class="article">
+        <form id="site-form" name="lzform" method="post" class="basic-form">{% csrf_token %}
+            <div style="display:none;"><input type="hidden" name="ck" value="nyRj"/></div>
+            <input type="hidden" name="site_type" value="P"/>
+
+            <div class="field">
+                <label class="field-label">小组名称:</label>
+                <div class="item fix-validate" style="padding-bottom: 25px;">
+                    <input name="grp_name" type="text"  maxlength="63" value="" class="basic-input"/>
+                    <span class="validate-option-always-visible">小组名称代表小组主要讨论主题，鲜明、独特的组名有助于提高小组的辨识度，例如：吃喝玩乐在北京，就是一个很好的名字</span>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="field-label">小组简介:</label>
+                <div class="item baseline-item fix-validate" style="padding-bottom: 20px;">
+                    <textarea name="grp_content" type="text"  rows="15" cols="50" value="" class="basic-textarea"></textarea>
+                    <span class="validate-option-always-visible">详细介绍小组的主题、用法与发言规则，帮助新成员快速了解、融入你的小组</span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <input type="hidden" name="step_submit" value="on">
+                <input class="btn-submit" type="submit" value="提交"/>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

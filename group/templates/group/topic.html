@@ -1,0 +1,99 @@
+{% extends "group/base.html" %}
+{% block title %}{{topic.title}}{% endblock %}
+
+{% block content %}
+<style>
+.comment-form .comment-form__share-checkbox {
+    float: right;
+}
+.comment-form .comment-form__share-checkbox input[type="checkbox"] {
+    position: relative;
+    top: 2px;
+}
+</style>
+<h3 class="entity-detail__title">{{topic.title}}</h3>
+<div class="user-profile__header">
+    <img width="32" height="32" src="{{ topic.user.mastodon_account.avatar }}" class="user-profile__avatar mast-avatar">
+    来自 <a href="{% url 'group:profile' topic.user.mastodon_username %}">
+        <span class="user-profile__username mast-displayname">{{ topic.user.mastodon_username }}</span>
+    </a>
+    <span>{{topic.created_at}}</span>
+</div>
+<div class="entity-desc" id="description">
+    <div id="rawContent">
+        <p class="entity-desc__content">
+        {{ topic.html_content | safe }}
+        </p>
+    </div>
+</div>
+{% if user == topic.user %}
+<div>
+    删除
+</div>
+{% endif %}
+<div class="dividing-line"></div>
+
+<div>
+    {% for comment in page_obj %}
+    <div class="user-profile__header">
+        <img width="32" height="32" src="{{ comment.user.mastodon_account.avatar }}" class="user-profile__avatar mast-avatar">
+        来自 <a href="{% url 'group:profile' comment.user.mastodon_username %}">
+            <span class="user-profile__username mast-displayname">{{ comment.user.mastodon_username }}</span>
+        </a>
+        <span>{{comment.created_at}}</span>
+    </div>
+    <div class="entity-desc" id="description">
+        <p class="entity-desc__content"></p>
+        {{comment.content | linebreaksbr}}
+        </p>
+    </div>
+    {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a href="?page=1">&lt; 前页</a>
+            {% else %}
+            &lt; 前页
+            {% endif %}
+
+            {% for i in page_obj.paginator.page_range %}
+            {% if page_obj.number == i %}
+            <span class="current">
+                {{ i }}
+            </span>
+            {% else %}
+            <a href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a href="?page={{page_obj.next_page_number}}">后页 &gt;</a>
+            {% else %}
+            后页 &gt;
+            {% endif %}
+        </span>
+    </div>
+</div>
+
+{% if user.is_authenticated and is_member %}
+<div>
+    <h5>你的回应</h5>
+    <div>
+        <form method="post" class="comment-form">{% csrf_token %}
+            {{ form.content }}
+            <div class="comment-form__share-checkbox">
+                {{ form.share_to_mastodon }}{{ form.share_to_mastodon.label }}
+            </div>
+            <input type="submit" value="提交" />
+        </form>
+    </div>
+</div>
+{% else %}
+<div><a href="{% url 'group:group' group.id %}">加入小组后回复</a></div>
+{% endif %}
+{% endblock %}
+
+{% block sidebar %}
+{% include "group/sidebar_group.html" %}
+{% endblock %}

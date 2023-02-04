@@ -1,0 +1,32 @@
+{% load static %}
+{% load i18n %}
+{% load admin_url %}
+<section id="navbar">
+    <nav class="navbar">
+        <div class="grid">
+            <div class="navbar__wrapper">
+                <a href="{% url 'common:home' %}" class="navbar__logo">
+                    <img src="{% static 'img/logo.svg' %}" alt="" class="navbar__logo-img" width="32" height="32">
+                </a>
+                <button class="navbar__dropdown-btn">• • •</button>
+                <ul class="navbar__link-list">
+
+                    {% if request.user.is_authenticated %}
+
+                        <a class="navbar__link {% if current == 'home' %}current{% endif %}" href="/">{% trans '主页' %}</a>
+                        <a class="navbar__link" href="https://neodb.social/" target="_blank">{% trans '书影音' %}</a>
+                        <a class="navbar__link" href="{% url 'group:create' %}">{% trans '创建小组' %}</a>
+                        <a class="navbar__link" id="logoutLink" href="{% url 'users:logout' %}">{% trans '登出' %}</a>
+                        {% if request.user.is_superuser %}
+                        <a class="navbar__link" href="{% admin_url %}">{% trans '后台' %}</a>
+                        {% endif %}
+
+                    {% else %}
+                        <a class="navbar__link" href="{% url 'users:login' %}?next={{ request.path }}">{% trans '登录' %}</a>
+                    {% endif %}
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</section>

@@ -1,0 +1,101 @@
+{% extends "group/base.html" %}
+{% block title %}{{group.name}}{% endblock %}
+
+{% block content %}
+{% load i18n %}
+{% load truncate %}
+{% load thumb %}
+<style>
+table {
+    width: 100%;
+}
+table, th {
+    text-align: left;
+}
+table, td {
+    font-size: 16px;
+}
+</style>
+
+{% if not page %}
+<img src="{{group.icon_url|thumb:'group'}}" class="entity-detail__avatar">
+<h4 class="entity-detail__title">{{group.name}}</h4>
+<span>创建于: {{group.created_at | date}}</span>
+<div class="dividing-line"></div>
+
+<div class="entity-desc" id="description">
+    <h5 class="entity-desc__title">简介</h5>
+    <p class="entity-desc__content"></p>
+    {{group.description | linebreaksbr}}
+    </p>
+</div>
+{% endif %}
+
+<div class="entity-desc" id="description">
+    <h5 class="entity-desc__title">最近讨论</h5>
+    {% if is_member %}
+    <div><a href="{% url 'group:new_topic' group.id %}">+发言</a></div>
+    {% else %}
+    {% if request.user.is_authenticated %}
+    <div><a href="{% url 'group:join' group.id %}">+加入小组发言</a></div>
+    {% else %}
+    <div><a href="{% url 'users:login' %}?next={{ request.path }}">+登录后发言</a></div>
+    {% endif %}
+    {% endif %}
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>讨论</th>
+      <th>作者</th>
+      <th>回应</th>
+      <th>最后回应</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for topic in page_obj %}
+    <tr>
+      <td><a href="{% url 'group:topic' topic.id %}">{{topic.title}}</a></td>
+      <td><a href="{% url 'group:profile' topic.user.mastodon_username %}">{{topic.user.mastodon_username}}</a></td>
+      <td>{{topic.comment_set.count}}</td>
+      <td>{{topic.updated_at | date:"Y-m-d H:i"}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+        <a href="?page=1">&lt; 前页</a>
+        {% else %}
+        &lt; 前页
+        {% endif %}
+
+        {% for i in page_obj.paginator.page_range %}
+        {% if page_obj.number == i %}
+        <span class="current">
+            {{ i }}
+        </span>
+        {% else %}
+        <a href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <a href="?page={{page_obj.next_page_number}}">后页 &gt;</a>
+        {% else %}
+        后页 &gt;
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
+
+
+{% block sidebar %}
+{% if not page %}
+{% include "group/sidebar.html" %}
+{% else %}
+{% include "group/sidebar_group.html" %}
+{% endif %}
+{% endblock %}

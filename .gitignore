@@ -127,3 +127,15 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# local folder
+.history/
+neodb/
+/static/
+markdownx/
+/media/
+dump.rdb
+*.crt
+*.key
+*.pid
+/run.sh

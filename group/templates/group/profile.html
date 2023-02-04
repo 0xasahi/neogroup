@@ -1,0 +1,36 @@
+{% extends "group/base.html" %}
+{% block title %}{{user.mastodon_username}}{% endblock %}
+
+{% block content %}
+    <div>
+    <img width="64" height="64" src="{{ user.mastodon_account.avatar }}" class="user-profile__avatar mast-avatar">
+    <h5>{{user.mastodon_username}}</h5>
+    </div>
+
+    <h5>加入的小组</h5>
+    <ul>
+    {% for jg in join_groups %}
+    <li><a href="{% url 'group:group' jg.group.id %}">{{jg.group.name}}</a></li>
+    {% endfor %}
+    </ul>
+
+    <div class="dividing-line"></div>
+    <h5>最新帖子</h5>
+    <ul>
+    {% for topic in topics %}
+    <li><a href="{% url 'group:topic' topic.id %}">{{topic.title}}</a> - {{topic.updated_at}}</li>
+    {% endfor %}
+    </ul>
+
+    <div class="dividing-line"></div>
+    <h5>最新回复</h5>
+    <ul>
+    {% for comment in comments %}
+    <li><a href="{% url 'group:topic' comment.topic.id %}#{{comment.id}}">{{comment.content}}</a> - {{comment.created_at}}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block sidebar %}
+{% include "partial/_sidebar.html" %}
+{% endblock %}

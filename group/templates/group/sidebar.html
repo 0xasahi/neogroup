@@ -1,0 +1,86 @@
+{% load static %}
+{% load i18n %}
+{% load admin_url %}
+{% load mastodon %}
+{% load oauth_token %}
+{% load truncate %}
+{% load thumb %}
+<style>
+    ul {
+        display:flex;
+        list-style:none;
+    }
+    li {
+        text-align: center;
+        justify-items: center;
+        padding: 0 3px !important;
+    }
+</style>
+<div class="grid__aside grid__aside--reverse-order grid__aside--tablet-column">
+    <div class="relation-dropdown">
+        <div class="relation-dropdown__button">
+            <span class="icon-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
+                    <path d="M8.12,3.29,5,6.42,1.86,3.29H.45L5,7.84,9.55,3.29Z" />
+                </svg>
+            </span>
+        </div>
+
+        <div class="relation-dropdown__body">
+            <div class="aside-section-wrapper aside-section-wrapper--transparent aside-section-wrapper--collapse">
+                <div>
+                    <h5>
+                        {% trans '最近加入' %}
+                    </h5>
+                    <ul class="group-user__group-user-list">
+                        {% for group_member in last_join_users %}
+                        <li class="group-user__user">
+                            <a href="{% url 'group:profile' group_member.user.mastodon_username %}">
+                                <img width="32" height="32" src="{{ group_member.user.mastodon_account.avatar }}" class="user-profile__avatar mast-avatar" alt="{{group_member.user.mastodon_username}}">
+                                <div class="user-name mast-displayname">
+                                {{group_member.user.username}}
+                                </div>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                    {% if group.user == request.user %}
+                    <li>&gt; 成员管理</li>
+                    <li>&gt; <a href="{% url 'group:group_edit' group.id %}">小组管理</a></li>
+                    {% endif %}
+                    {% if is_member %}
+                    <li>&gt; <a href="{% url 'group:leave' group.id %}">退出小组</a></li>
+                    {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+      </div>
+  </div>
+
+  {% if user == request.user %}
+  <div id="oauth2Token" hidden="true">{{ request.user.mastodon_token }}</div>
+  <div id="mastodonURI" hidden="true">{{ request.user.mastodon_site }}</div>
+  <div id="userMastodonID" hidden="true">{{ user.mastodon_id }}</div>
+
+  <div id="spinner" hidden>
+    <div class="spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+  </div>
+  {% endif %}

@@ -1,0 +1,36 @@
+{% extends "group/base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% load thumb %}
+{% if my_groups %}
+<div>
+    <h5>我加入的小组</h5>
+    <ul>
+        {% for my_group in my_groups %}
+        <li style="font-size: 16px;">
+        <img src="{{my_group.group.icon_url|thumb:'group'}}" class="entity-detail__avatar">
+        <a href="{% url 'group:group' my_group.group.id %}">{{my_group.group.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="dividing-line"></div>
+{% endif %}
+<div>
+    <h5>全部小组</h5>
+    <ul>
+        {% for group in groups %}
+        <li style="font-size: 16px;">
+        <img src="{{group.icon_url|thumb:'group'}}" class="entity-detail__avatar">
+        <a href="{% url 'group:group' group.id %}">{{group.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
+
+{% block sidebar %}
+    {%include "partial/_sidebar.html"%}
+{% endblock %}
