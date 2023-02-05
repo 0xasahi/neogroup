@@ -21,6 +21,7 @@ table, td {
 <img src="{{group.icon_url|thumb:'group'}}" class="entity-detail__avatar">
 <h4 class="entity-detail__title">{{group.name}}</h4>
 <span>创建于: {{group.created_at | date}}</span>
+<span>创建者: <a href="{% url 'group:profile' group.user.mastodon_username %}">{{group.user.mastodon_username}}</a></span>
 <div class="dividing-line"></div>
 
 <div class="entity-desc" id="description">

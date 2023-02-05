@@ -30,6 +30,7 @@ def create(request):
             group.name = name
             group.description = description
             group.save()
+            GroupMember.objects.create(user=request.user, group=group)
             return redirect("group:group", group_id=group.id)
         else:
             return render(
