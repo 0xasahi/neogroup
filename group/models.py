@@ -13,7 +13,7 @@ def group_image_path(instance, filename):
 
 class Group(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     description = models.TextField()
     icon_url = models.ImageField(
         upload_to=group_image_path,
