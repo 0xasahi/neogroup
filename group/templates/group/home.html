@@ -28,8 +28,32 @@
         {% endfor %}
     </ul>
 </div>
-{% endblock %}
 
+<div class="dividing-line"></div>
+<div>
+    <h5>最新帖子</h5>
+    <ul>
+        {% for topic in last_topics %}
+        <li>
+        <a href="{% url 'group:topic' topic.id %}">{{topic.title}}</a> - from <a href="{% url 'group:group' topic.group.id %}">{{topic.group.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="dividing-line"></div>
+<div>
+    <h5>最新加入的用户</h5>
+    <ul>
+        {% for user in last_join_users %}
+        <li>
+        <img width="32" height="32" src="{{ user.mastodon_account.avatar }}" class="user-profile__avatar mast-avatar">
+        <a href="{% url 'group:profile' user.mastodon_username %}">{{user.mastodon_username}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
 
 {% block sidebar %}
     {%include "partial/_sidebar.html"%}
