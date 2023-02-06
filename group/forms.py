@@ -22,6 +22,7 @@ class CommentForm(forms.ModelForm):
         fields = ('id', 'content')
     content = forms.CharField(required=True, widget=forms.Textarea(attrs={"rows": 5}))
     id = forms.IntegerField(required=False)
+    comment_reply = forms.IntegerField(required=False, widget=forms.HiddenInput)
     share_to_mastodon = forms.BooleanField(
         label=_("分享到联邦网络"), initial=True, required=False
     )

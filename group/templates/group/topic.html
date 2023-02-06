@@ -43,12 +43,20 @@
         <span>{{comment.created_at}}</span>
     </div>
     <div class="entity-desc" id="description">
+        {% if comment.comment_reply %}
+        <div style="border-left: 2px solid #ddd; padding-left: 10px; margin-top: 10px; color:#9a9a9a;">
+            {{ comment.comment_reply.content | truncatechars:100 }}
+        </div>
+        {% endif %}
         <p class="entity-desc__content"></p>
         {{comment.content | linebreaksbr}}
         </p>
-        {% if user == comment.user %}
-        <a href="{% url 'group:delete_comment' comment.id %}" onclick="return confirm('确认删除?')">删除</a>
-        {% endif %}
+        <div>
+            <span><a href="#comment-form" onclick="$('#id_comment_reply').val('{{comment.id}}')">回应</a></span>
+            {% if user == comment.user %}
+            <a href="{% url 'group:delete_comment' comment.id %}" onclick="return confirm('确认删除?')">删除</a>
+            {% endif %}
+        </div>
     </div>
     {% endfor %}
 
@@ -83,7 +91,8 @@
 <div>
     <h5>你的回应</h5>
     <div>
-        <form method="post" class="comment-form">{% csrf_token %}
+        <form method="post" class="comment-form" id="comment-form">{% csrf_token %}
+            {{ form.comment_reply }}
             {{ form.content }}
             <div class="comment-form__share-checkbox">
                 {{ form.share_to_mastodon }}{{ form.share_to_mastodon.label }}

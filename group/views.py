@@ -130,10 +130,16 @@ def topic(request, topic_id):
             comment = comment_form.save(commit=False)
             comment.topic = topic
             comment.user = request.user
+            comment_reply_id = comment_form.cleaned_data.get("comment_reply")
+            if comment_reply_id:
+                comment_reply = Comment.objects.filter(id=comment_reply_id).first()
+                if comment_reply:
+                    comment.comment_reply = comment_reply
             comment.save()
             topic.updated_at = comment.created_at
             topic.save()
             if comment_form.cleaned_data["share_to_mastodon"]:
+                # TODO If there is a comment_reply field, it should be at the corresponding user in mastodon
                 comment_form.instance.save = lambda **args: None
                 comment_form.instance.shared_link = None
                 if not share_comment(comment_form.instance):
