@@ -46,7 +46,9 @@
         <p class="entity-desc__content"></p>
         {{comment.content | linebreaksbr}}
         </p>
+        {% if user == comment.user %}
         <a href="{% url 'group:delete_comment' comment.id %}" onclick="return confirm('确认删除?')">删除</a>
+        {% endif %}
     </div>
     {% endfor %}
 
