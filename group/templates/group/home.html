@@ -45,6 +45,18 @@
 
 <div class="dividing-line"></div>
 <div>
+    <h5>最新回复</h5>
+    <ul>
+        {% for comment in last_comments %}
+        <li>
+        <a href="{% url 'group:topic' comment.topic.id %}">{{comment.content}}</a> - from <a href="{% url 'group:profile' comment.user.id %}">{{comment.user.mastodon_username}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="dividing-line"></div>
+<div>
     <h5>最新加入的用户</h5>
     <ul>
         {% for user in last_join_users %}
