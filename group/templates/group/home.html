@@ -11,6 +11,7 @@
         <li style="font-size: 16px;">
         <img src="{{my_group.group.icon_url|thumb:'group'}}" class="entity-detail__avatar">
         <a href="{% url 'group:group' my_group.group.id %}">{{my_group.group.name}}</a>
+        - {{my_group.group.description | truncatechars:40}}
         </li>
         {% endfor %}
     </ul>
@@ -24,6 +25,7 @@
         <li style="font-size: 16px;">
         <img src="{{group.icon_url|thumb:'group'}}" class="entity-detail__avatar">
         <a href="{% url 'group:group' group.id %}">{{group.name}}</a>
+        - {{group.description | truncatechars:40}}
         </li>
         {% endfor %}
     </ul>
