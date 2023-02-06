@@ -157,6 +157,61 @@ def topic(request, topic_id):
     return render(request, "group/topic.html", {"topic": topic, "form": comment_form, "page_obj": page_obj, "group": topic.group,
                                             "last_topics": last_topics, "is_member": is_member})
 
+def delete_topic(request, topic_id):
+    topic = Topic.objects.filter(id=topic_id).first()
+    if not topic:
+        return render(
+            request,
+            "common/error.html",
+            {
+                "msg": "话题不存在",
+                "secondary_msg": "",
+            },
+        )
+    if request.user != topic.user:
+        return render(
+            request,
+            "common/error.html",
+            {
+                "msg": "你不是话题作者，不能删除话题",
+                "secondary_msg": "",
+            },
+        )
+    if topic.comment_set.count() > 0:
+        return render(
+            request,
+            "common/error.html",
+            {
+                "msg": "话题有评论，不能删除",
+                "secondary_msg": "",
+            },
+        )
+    topic.delete()
+    return redirect("group:group", group_id=topic.group.id)
+
+def delete_comment(request, comment_id):
+    comment = Comment.objects.filter(id=comment_id).first()
+    if not comment:
+        return render(
+            request,
+            "common/error.html",
+            {
+                "msg": "评论不存在",
+                "secondary_msg": "",
+            },
+        )
+    if request.user != comment.user:
+        return render(
+            request,
+            "common/error.html",
+            {
+                "msg": "你不是评论作者，不能删除评论",
+                "secondary_msg": "",
+            },
+        )
+    comment.delete()
+    return redirect("group:topic", topic_id=comment.topic.id)
+
 def join(request, group_id):
     group = Group.objects.filter(id=group_id).first()
     if not group:

@@ -28,7 +28,7 @@
 </div>
 {% if user == topic.user %}
 <div>
-    删除
+    <a href="{% url 'group:delete_topic' topic.id %}" onclick="return confirm('确认删除?')">删除</a>
 </div>
 {% endif %}
 <div class="dividing-line"></div>
@@ -46,6 +46,7 @@
         <p class="entity-desc__content"></p>
         {{comment.content | linebreaksbr}}
         </p>
+        <a href="{% url 'group:delete_comment' comment.id %}" onclick="return confirm('确认删除?')">删除</a>
     </div>
     {% endfor %}
 
