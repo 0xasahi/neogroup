@@ -12,5 +12,6 @@ urlpatterns = [
     path("topic/<int:topic_id>/", topic, name="topic"),
     path("topic/<int:topic_id>/delete", delete_topic, name="delete_topic"),
     path("comment/<int:comment_id>/delete", delete_comment, name="delete_comment"),
+    path("comment/<int:comment_id>/like", like_comment, name="like_comment"),
     path("profile/<str:mastodon_username>/", profile, name="profile"),
 ]

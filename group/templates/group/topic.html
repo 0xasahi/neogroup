@@ -2,6 +2,7 @@
 {% block title %}{{topic.title}}{% endblock %}
 
 {% block content %}
+{% load neogroup %}
 <style>
 .comment-form .comment-form__share-checkbox {
     float: right;
@@ -52,6 +53,12 @@
         {{comment.content | linebreaksbr}}
         </p>
         <div>
+            <span>
+                <a href="{% url 'group:like_comment' comment.id %}">
+                {% is_like_comment comment as currentuser_is_like_comment %}
+                {% if currentuser_is_like_comment %}已赞{% else %}赞{% endif %}{%if comment.like_count%}({{comment.like_count}}){%endif%}
+                </a>
+            </span>
             <span><a href="#comment-form" onclick="$('#id_comment_reply').val('{{comment.id}}')">回应</a></span>
             {% if user == comment.user %}
             <a href="{% url 'group:delete_comment' comment.id %}" onclick="return confirm('确认删除?')">删除</a>

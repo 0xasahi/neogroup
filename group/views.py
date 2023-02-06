@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from mastodon.api import share_topic, share_comment
 from users.models import User
-from group.models import Group, Topic, GroupMember, Comment
+from group.models import Group, Topic, GroupMember, Comment, LikeComment
 from group.forms import TopicForm, CommentForm, GroupSettingsForm
 
 
@@ -324,3 +324,20 @@ def profile(request, mastodon_username):
     comments = Comment.objects.filter(user=user).order_by("-id")[:20]
     return render(request, "group/profile.html", {"user": user, "join_groups": join_groups, "topics": topics,
                                                 "comments": comments})
+
+def like_comment(request, comment_id):
+    comment = Comment.objects.filter(id=comment_id).first()
+    if not comment:
+        return render(
+            request,
+            "common/error.html",
+            {
+                "msg": "评论不存在",
+                "secondary_msg": "",
+            },
+        )
+    if not LikeComment.is_liked(request.user, comment):
+        LikeComment.objects.create(user=request.user, comment=comment)
+    else:
+        LikeComment.objects.filter(user=request.user, comment=comment).delete()
+    return redirect("group:topic", topic_id=comment.topic.id)

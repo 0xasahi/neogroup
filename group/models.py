@@ -79,3 +79,21 @@ class Comment(models.Model):
     @property
     def absolute_url(self):
         return settings.APP_WEBSITE + reverse("group:topic", kwargs={"topic_id": self.topic.id})
+
+    @property
+    def like_count(self):
+        return LikeComment.objects.filter(comment=self).count()
+
+
+class LikeComment(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.comment.content
+
+    @classmethod
+    def is_liked(cls, user, comment):
+        return cls.objects.filter(user=user, comment=comment).exists()
