@@ -336,6 +336,15 @@ def like_comment(request, comment_id):
                 "secondary_msg": "",
             },
         )
+    if not request.user.is_authenticated:
+        return render(
+            request,
+            "common/error.html",
+            {
+                "msg": "请先登录",
+                "secondary_msg": "",
+            },
+        )
     if not LikeComment.is_liked(request.user, comment):
         LikeComment.objects.create(user=request.user, comment=comment)
     else:
