@@ -9,7 +9,9 @@
     <ul>
         {% for my_group in my_groups %}
         <li style="font-size: 16px;">
-        <img src="{{my_group.group.icon_url|thumb:'group'}}" class="entity-detail__avatar">
+        {% if my_group.group.icon_url %}
+        <img width="64" height="64" src="{{my_group.group.icon_url|thumb:'group'}}" class="entity-detail__avatar">
+        {% endif %}
         <a href="{% url 'group:group' my_group.group.id %}">{{my_group.group.name}}</a>
         - {{my_group.group.description | truncatechars:40}}
         </li>
