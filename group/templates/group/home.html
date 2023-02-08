@@ -53,7 +53,7 @@
     <ul>
         {% for comment in last_comments %}
         <li>
-        <a href="{% url 'group:topic' comment.topic.id %}">{{comment.content}}</a> - from <a href="{% url 'group:profile' comment.user.id %}">{{comment.user.mastodon_username}}</a>
+        <a href="{% url 'group:topic' comment.topic.id %}">{{comment.content}}</a> - from <a href="{% url 'group:profile' comment.user.mastodon_username %}">{{comment.user.mastodon_username}}</a>
         </li>
         {% endfor %}
     </ul>
