@@ -1,4 +1,9 @@
 {% extends "group/base.html" %}
+{% block extra_head %}
+<meta property="og:title" content="{{group.name}}">
+<meta property="og:description" name="description" content="{{group.description | truncatechars:100}}">
+{% endblock %}
+
 {% block title %}{{group.name}}{% endblock %}
 
 {% block content %}
