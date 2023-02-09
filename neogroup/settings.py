@@ -202,9 +202,9 @@ MASTODON_TIMEOUT = 30
 # Allow user to login via any Mastodon/Pleroma sites
 MASTODON_ALLOW_ANY_SITE = True
 
-MASTODON_CLIENT_SCOPE = "read write follow"
+# MASTODON_CLIENT_SCOPE = "read write follow"
 # use the following if it's a new site
-# MASTODON_CLIENT_SCOPE = 'read:accounts read:follows read:search read:blocks read:mutes write:statuses write:media'
+MASTODON_CLIENT_SCOPE = 'read:accounts read:follows read:search read:blocks read:mutes write:statuses write:media'
 
 MASTODON_LEGACY_CLIENT_SCOPE = "read write follow"
 
