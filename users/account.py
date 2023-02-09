@@ -82,7 +82,7 @@ def connect(request):
         )
     else:
         login_url = get_mastodon_login_url(app, login_domain, version, request)
-        print("login_url", login_url)
+        # print("login_url", login_url)
         resp = redirect(login_url)
         resp.set_cookie("mastodon_domain", domain)
         return resp
