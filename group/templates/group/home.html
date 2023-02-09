@@ -20,6 +20,21 @@
 </div>
 <div class="dividing-line"></div>
 {% endif %}
+
+{% if my_groups_topics %}
+<div>
+    <h5>我加入的小组最新帖子</h5>
+    <ul>
+        {% for topic in last_topics %}
+        <li>
+        <a href="{% url 'group:topic' topic.id %}">{{topic.title}}</a> - from <a href="{% url 'group:group' topic.group.id %}">{{topic.group.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="dividing-line"></div>
+{% endif %}
+
 <div>
     <h5>全部小组</h5>
     <ul>
@@ -74,5 +89,7 @@
 {% endblock %}
 
 {% block sidebar %}
+    {% if request.user.is_authenticated %}
     {%include "partial/_sidebar.html"%}
+    {% endif %}
 {% endblock %}
