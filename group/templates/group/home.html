@@ -25,7 +25,7 @@
 <div>
     <h5>我加入的小组最新帖子</h5>
     <ul>
-        {% for topic in last_topics %}
+        {% for topic in my_groups_topics %}
         <li>
         <a href="{% url 'group:topic' topic.id %}">{{topic.title}}</a> - from <a href="{% url 'group:group' topic.group.id %}">{{topic.group.name}}</a>
         </li>
