@@ -571,7 +571,7 @@ def share_topic(topic):
     user = topic.user
     tags = settings.MASTODON_TAGS
     content = (
-        f"发布了小组话题: {topic.title}\n{topic.absolute_url}\n{tags}"
+        f"{topic.title}\n{topic.absolute_url}\n{tags}"
     )
     visibility = TootVisibilityEnum.PUBLIC
     response = post_toot(
@@ -590,8 +590,12 @@ def share_topic(topic):
 def share_comment(comment):
     user = comment.user
     tags = settings.MASTODON_TAGS
+    if comment.comment_reply:
+        at_user = comment.comment_reply.user.mastodon_username
+    else:
+        at_user = comment.topic.user.mastodon_username
     content = (
-        f"发布了回应: {comment.content}\n{comment.absolute_url}\n{tags}"
+        f"@{at_user} {comment.content}\n{comment.absolute_url}\n{tags}"
     )
     visibility = TootVisibilityEnum.PUBLIC
     response = post_toot(
