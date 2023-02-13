@@ -3,6 +3,35 @@
 
 {% block content %}
 {% load thumb %}
+
+{% if my_groups_topics %}
+<div>
+    <h5>我加入的小组最新帖子</h5>
+    <ul>
+        {% for topic in my_groups_topics %}
+        <li>
+        <a href="{% url 'group:topic' topic.id %}">{{topic.title}}</a> - from <a href="{% url 'group:group' topic.group.id %}">{{topic.group.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="dividing-line"></div>
+{% endif %}
+
+{% if my_groups_comments %}
+<div>
+    <h5>我加入的小组最新回复</h5>
+    <ul>
+        {% for comment in my_groups_comments %}
+        <li>
+        <a href="{% url 'group:topic' comment.topic.id %}">{{comment.content | truncatechars:40}}</a> - from <a href="{% url 'group:group' comment.topic.group.id %}">{{comment.topic.group.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="dividing-line"></div>
+{% endif %}
+
 {% if my_groups %}
 <div>
     <h5>我加入的小组</h5>
@@ -14,20 +43,6 @@
         {% endif %}
         <a href="{% url 'group:group' my_group.group.id %}">{{my_group.group.name}}</a>
         - {{my_group.group.description | truncatechars:40}}
-        </li>
-        {% endfor %}
-    </ul>
-</div>
-<div class="dividing-line"></div>
-{% endif %}
-
-{% if my_groups_topics %}
-<div>
-    <h5>我加入的小组最新帖子</h5>
-    <ul>
-        {% for topic in my_groups_topics %}
-        <li>
-        <a href="{% url 'group:topic' topic.id %}">{{topic.title}}</a> - from <a href="{% url 'group:group' topic.group.id %}">{{topic.group.name}}</a>
         </li>
         {% endfor %}
     </ul>
