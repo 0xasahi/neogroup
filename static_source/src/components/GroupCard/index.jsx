@@ -2,7 +2,7 @@ import React from 'react';
 import './style.scss';
 
 function GroupCard (props) {
-    console.log(props);
+    // console.log(props);
     const {
         created_at,
         description,

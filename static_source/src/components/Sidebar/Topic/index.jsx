@@ -7,7 +7,7 @@ import TopicCard from '../../TopicCard';
 
 function TopicSidebar (props) {
     const {group, last_topics} = props;
-    console.log(group, last_topics)
+    // console.log(group, last_topics)
     return (
         <div className='sidebar'>
             <GroupCard {...group} />
