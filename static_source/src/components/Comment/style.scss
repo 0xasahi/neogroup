@@ -1,0 +1,46 @@
+@import '../../common/color.scss';
+.comment {
+  // align-self: flex-start;
+  width: 100%;
+  margin-bottom: 1.6rem;
+  transition: all 0.3s ease-in-out;
+  align-items: center;
+
+  &:hover {
+    .delete {
+      display: block;
+    }
+  }
+
+  &.highlight {
+    background-color: $gray;
+  }
+  &-content {
+    margin-left: 3.6rem;
+  }
+  &-action {
+    display: flex;
+    margin-left: 3.6rem;
+    margin-top: 1rem;
+
+    .like {
+      margin-right: 1rem;
+    }
+    .reply {
+      display: flex;
+      cursor: pointer;
+      svg {
+        margin-top: 0.05rem;
+        fill: $gray;
+        stroke: none;
+      }
+    }
+    .delete {
+      color: $gray2;
+      display: none;
+      cursor: pointer;
+      margin-left: auto;
+      opacity: 0.8;
+    }
+  }
+}

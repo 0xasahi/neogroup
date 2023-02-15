@@ -1,0 +1,73 @@
+@import '../../common/color.scss';
+
+.author {
+  display: flex;
+  width: 100%;
+
+  .left-side {
+    flex: 1 0 auto;
+    width: 2rem;
+    height: 2rem;
+    .topic-author .avatar {
+      width: 3rem;
+      border-radius: 2rem;
+    }
+  }
+  .right-side {
+    width: calc(100% - 3.6rem);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: $gray2;
+    align-items: flex-start;
+
+    .topic {
+      &-user {
+        max-width: 80%;
+
+        &-username {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          a {
+            text-decoration: none;
+            color: inherit;
+            &:active,
+            &:hover {
+              color: $purple2;
+            }
+          }
+
+          .display-name {
+            color: $black;
+            font-weight: 500;
+            font-size: 1.2rem;
+            margin-right: 0.2rem;
+          }
+        }
+        .note {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          div {
+            margin-block-start: 0;
+            margin-block-end: 0;
+            margin-inline-start: 0;
+            margin-inline-end: 0;
+          }
+          p {
+            margin-block-start: 0;
+            margin-block-end: 0;
+            margin-inline-start: 0;
+            margin-inline-end: 0;
+          }
+        }
+      }
+    }
+
+    .authored-at {
+      padding-top: 0.5rem;
+      font-size: 0.8rem;
+    }
+  }
+}

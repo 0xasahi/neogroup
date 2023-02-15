@@ -26,7 +26,7 @@
     <h5>最新回复</h5>
     <ul>
     {% for comment in comments %}
-    <li><a href="{% url 'group:topic' comment.topic.id %}#{{comment.id}}">{{comment.content}}</a> - {{comment.created_at}}</li>
+    <li><a href="{{ comment.absolute_url }}">{{comment.content}}</a> - {{comment.created_at}}</li>
     {% endfor %}
     </ul>
 {% endblock %}

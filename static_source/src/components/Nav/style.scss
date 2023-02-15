@@ -1,0 +1,222 @@
+@import '../../common/color.scss';
+
+.nav-bar {
+  display: flex;
+  height: 3.2rem;
+  width: 100vw;
+  background: $purple0;
+  color: $white;
+  justify-content: center;
+  line-height: 2rem;
+  z-index: 10;
+  position: fixed;
+  top: 0;
+
+  a {
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    text-decoration: none;
+  }
+
+  .nav-wrapper {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    margin: auto;
+    justify-content: space-between;
+    width: min(95%, 1200px);
+
+    .logo {
+      height: 48px;
+      width: 48px;
+      background-color: white;
+      border-radius: 50%;
+    }
+  }
+
+  .nav-wrapper ul {
+    float: inline-end;
+    list-style: none;
+    text-align: right;
+    transition: transform 0.5s ease-out;
+  }
+  @media (max-width: 640px) {
+    .nav-wrapper ul {
+      display: none;
+    }
+  }
+  @media (orientation: landscape) {
+    .nav-wrapper ul {
+      display: inline-block;
+    }
+  }
+
+  .nav-wrapper a {
+    height: 100%;
+  }
+
+  .nav-wrapper li {
+    display: inline-block;
+  }
+
+  .nav-wrapper li a {
+    color: $white;
+    display: block;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    margin: 0 10px;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.5s ease;
+  }
+
+  .nav-wrapper li a:hover {
+    color: $purple3;
+    transition: all 0.4s ease;
+  }
+
+  /* Animated Bottom Line */
+  .nav-wrapper li a:before,
+  .nav-wrapper li a:after {
+    content: ' ';
+    position: absolute;
+    width: 0%;
+    height: 1px;
+    bottom: -1px;
+    color: $purple2;
+    background-color: $purple2;
+  }
+
+  .nav-wrapper li a:before {
+    left: 0;
+    transition: 0.5s;
+  }
+
+  .nav-wrapper li a:after {
+    right: 0;
+  }
+
+  .nav-wrapper li a:hover:before {
+    width: 100%;
+    transition: width 0.5s cubic-bezier((0.22, 0.61, 0.36, 1));
+  }
+
+  .nav-wrapper li a:hover:after {
+    background: transparent;
+    width: 100%;
+  }
+
+  /*======================================================
+                    Mobile Menu Menu Icon
+  ======================================================*/
+  @media (max-width: 540px) {
+    .menuIcon {
+      cursor: pointer;
+      display: block;
+      position: fixed;
+      right: 0.6rem;
+      width: 1.8rem;
+      top: 0.2rem;
+      height: 3.2rem;
+      z-index: 14;
+    }
+
+    /* Icon Bars */
+    .icon-bars {
+      background: $white;
+      position: absolute;
+      left: 1px;
+      top: 45%;
+      height: 2px;
+      width: 20px;
+      &::before {
+        background: $white;
+        content: '';
+        position: absolute;
+        left: 0;
+        top: -8px;
+        height: 2px;
+        width: 20px;
+      }
+      &::after {
+        margin-top: 0px;
+        background: $white;
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        height: 2px;
+        width: 20px;
+      }
+    }
+
+    /* Toggle Menu Icon */
+    .menuIcon.toggle {
+      top: 1.2rem;
+      height: 2rem;
+
+      .icon-bars {
+        top: 5px;
+        transform: translate3d(0, 5px, 0) rotate(135deg);
+        transition-delay: 0.1s;
+        transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        &::before {
+          top: 0;
+          transition-delay: 0.1s;
+          opacity: 0;
+        }
+        &::after {
+          top: 10px;
+          transform: translate3d(0, -10px, 0) rotate(-270deg);
+          transition-delay: 0.1s;
+          transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        &.overlay {
+          width: 20px;
+          opacity: 0;
+          transition: all 0s ease 0s;
+        }
+      }
+    }
+  }
+
+  .overlay-menu {
+    background: $purple;
+    color: $black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-right: 15px;
+    transform: translateX(-100%);
+    width: 100vw;
+    height: 100vh;
+    transition: transform 0.2s ease-out;
+
+    ul,
+    li {
+      display: block;
+      position: relative;
+    }
+
+    li a {
+      display: block;
+      font-size: 1.8rem;
+      line-height: 3rem;
+      letter-spacing: 4px;
+      text-align: right;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    li a:hover,
+    li a:active {
+      color: $white;
+      transition: color 0.3s ease;
+    }
+  }
+}

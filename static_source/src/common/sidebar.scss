@@ -1,0 +1,14 @@
+@import './color.scss';
+
+.sidebar {
+  color: $black0;
+  &-section {
+    &-title {
+      display: flex;
+      font-size: 1.6rem;
+      margin-bottom: 0.4rem;
+    }
+    &-topics {
+    }
+  }
+}

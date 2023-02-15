@@ -1,0 +1,12 @@
+{% if components %}
+    {% for component in components %}
+        {{ component.json_obj|json_script:component.data_identifier }}
+        <script>
+            var container = document.getElementById('{{ component.identifier }}');
+            var root = ReactDOMClient.createRoot(container);
+            root.render(
+                React.createElement({{ component.name }}, JSON.parse(document.getElementById("{{ component.data_identifier }}").textContent)),
+            );
+        </script>
+    {% endfor %}
+{% endif %}

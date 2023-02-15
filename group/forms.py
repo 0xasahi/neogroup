@@ -20,6 +20,7 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('id', 'content')
+
     content = forms.CharField(required=True, widget=forms.Textarea(attrs={"rows": 5}))
     id = forms.IntegerField(required=False)
     comment_reply = forms.IntegerField(required=False, widget=forms.HiddenInput)

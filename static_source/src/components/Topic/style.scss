@@ -1,0 +1,44 @@
+@import '../../common/color.scss';
+
+body {
+  background: $white;
+}
+
+.topic {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  flex-flow: column;
+  margin-bottom: 0.5rem;
+  &-content {
+    color: $black;
+    margin-left: 3.6rem;
+  }
+
+  .title {
+    font-size: 1.8rem;
+    color: $black;
+    margin-bottom: 1rem;
+  }
+  .divide {
+    height: 0;
+    width: 100%;
+    margin: 24px 0 24px;
+    border-top: solid 1px #ccc;
+  }
+  .comments {
+    &-wrapper {
+      width: 100%;
+    }
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+  .reply-form-wrapper {
+    background-color: white;
+    border-radius: 4px;
+    width: 100%;
+    box-shadow: #0000001f 0 2px 8px;
+    color: $black0;
+  }
+}

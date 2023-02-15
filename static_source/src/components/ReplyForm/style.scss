@@ -1,0 +1,61 @@
+@import '../../common/color.scss';
+.reply {
+  &-form {
+    display: flex;
+    padding: 1rem;
+    flex-direction: column;
+  }
+
+  &-content {
+    overflow: hidden;
+    textarea {
+      color: $black0;
+      font-size: 1rem;
+      width: 100%;
+      border: none;
+      border-radius: 3px;
+      overflow: auto;
+      outline: 0 none;
+      resize: none; /*remove the resize handle on the bottom right*/
+    }
+  }
+  &-action {
+    display: flex;
+    align-self: flex-end;
+    .share-to-mastodon {
+      margin-right: 0.5rem;
+      cursor: pointer;
+      svg {
+        fill: $gray;
+      }
+      &.yes {
+        svg {
+          fill: $purple2;
+        }
+      }
+    }
+    .submit {
+      cursor: pointer;
+      color: $purple2;
+      border-radius: 8px;
+
+      padding: 0.2rem 0.4rem;
+      outline: none;
+      display: flex;
+      align-items: center;
+      svg {
+        fill: $purple2;
+      }
+
+      transition: all 0.2s ease-in-out;
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: $purple2;
+        svg {
+          fill: $white;
+        }
+      }
+    }
+  }
+}

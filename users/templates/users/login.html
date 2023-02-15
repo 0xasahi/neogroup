@@ -11,7 +11,7 @@
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/logo_square.png' %}">
     <title>{{ site_name }} - {% trans '登录' %}</title>
-    {% include "common_libs.html" with jquery=1 %}
+    {% include "libs/common.html" with jquery=1 %}
     <link rel="stylesheet" href="https://cdn.staticfile.org/milligram/1.4.1/milligram.min.css">
     <link rel="stylesheet" href="{% static 'css/boofilsic_edit.css' %}">
     <link rel="stylesheet" href="{% static 'css/boofilsic_box.css' %}">

@@ -1,0 +1,14 @@
+{% extends "group/react_base.html" %}
+
+{% load react %}
+{% load static %}
+
+{% block content %}
+{% react_render component="Topic" props=topic %}
+{% react_print %}
+{% endblock %}
+
+{% block sidebar %}
+{% react_render component="TopicSidebar" props=sidebar %}
+{% react_print %}
+{% endblock %}
