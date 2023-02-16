@@ -5,6 +5,8 @@ from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.http import JsonResponse
+from django.utils.translation import gettext_lazy as _
+from django.urls import reverse
 from mastodon.api import share_topic, share_comment
 from users.models import User
 from common.config import ITEMS_PER_PAGE
