@@ -11,7 +11,7 @@ export default defineConfig({
     lib: {
       formats: ['cjs'],
       entry: {
-        group: 'src/index.jsx',
+        group: 'src/index.js',
       },
       name: 'group',
       fileName: 'group',

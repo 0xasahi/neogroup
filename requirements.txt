@@ -16,3 +16,4 @@ opencc
 hiredis==2.1.1
 django_react_templatetags
 marshmallow
+hypernova

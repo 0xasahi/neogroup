@@ -262,7 +262,13 @@ RQ_QUEUES = {
 }
 
 RQ_SHOW_ADMIN_LINK = True
+
+# React
 REACT_COMPONENT_PREFIX = 'C.'
+# SSR
+REACT_RENDER_HOST = 'http://localhost:3030/batch'
+REACT_SSR_SERVICE = "django_react_templatetags.ssr.hypernova.HypernovaService"
+
 
 try:
     from neogroup.local_settings import *

@@ -1,8 +1,9 @@
 import React, {useRef, useEffect} from 'react';
+import {isBrowser} from '../../common/utils';
 import './style.scss';
 
 export const NavBar = () => {
-    const path = location.pathname;
+    const path = isBrowser() ? location.pathname : '';
 
     const items = [
         ['/', '首页'],

@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactDOMClient from 'react-dom/client';
+import ReactDOMClient from 'react-dom';
 import * as C from './App';
 import './index.scss';
 
 window.React = React;
-window.ReactDOMClient = ReactDOMClient;
+window.ReactDOM = ReactDOMClient;
 window.C = C;

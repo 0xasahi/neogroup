@@ -1,11 +1,14 @@
 import React, {useLayoutEffect, useEffect, useState, useRef} from 'react';
-import DOMPurify from 'dompurify'
+import DOMPurify from 'isomorphic-dompurify';
 import Author from '../Author';
 import Comment from '../Comment';
 import ReplyForm from '../ReplyForm';
 import Pagination from '../Pagination';
 import axiosInstance from '../../common/axios';
+import {isBrowser} from '../../common/utils';
 import './style.scss';
+
+const useIsomorphicLayoutEffect = isBrowser() ? useLayoutEffect : useEffect;
 
 function Topic (props) {
     const [comments, setComments] = useState(props.comments || []);
@@ -36,7 +39,7 @@ function Topic (props) {
     }
 
     const firstUpdate = useRef(true);
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
         } else {
@@ -51,7 +54,7 @@ function Topic (props) {
         }
     }, [replyComment]);
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         // get comment id from url query ,active and scroll to it
         const urlParams = new URLSearchParams(window.location.search);
         const commentId = urlParams.get('comment_id');
@@ -79,6 +82,7 @@ function Topic (props) {
             </div>
             <Author {...user} showNote={true} authored_at={updated_at} />
             <div
+                onClick={() => alert('This String was rendered on the client')}
                 className='topic-content'
                 dangerouslySetInnerHTML={{
                     __html: DOMPurify.sanitize(html_content)
@@ -104,4 +108,6 @@ function Topic (props) {
     );
 }
 
+
 export default Topic;
+

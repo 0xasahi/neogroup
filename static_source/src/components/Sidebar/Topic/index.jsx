@@ -4,10 +4,8 @@ import React from 'react';
 import GroupCard from '../../GroupCard';
 import TopicCard from '../../TopicCard';
 
-
 function TopicSidebar (props) {
     const {group, last_topics} = props;
-    // console.log(group, last_topics)
     return (
         <div className='sidebar'>
             <GroupCard {...group} />
@@ -25,5 +23,5 @@ function TopicSidebar (props) {
     );
 }
 
-export default TopicSidebar;
 
+export default TopicSidebar;

@@ -26,3 +26,7 @@ export function getTimeDiffStr(date1, date2) {
   }
   return '刚刚';
 }
+
+export function isBrowser () {
+  return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+}

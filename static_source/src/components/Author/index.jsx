@@ -1,5 +1,5 @@
 import React from 'react';
-import DOMPurify from 'dompurify'
+import DOMPurify from 'isomorphic-dompurify';
 import './style.scss';
 import {getTimeDiffStr} from '../../common/utils';
 
@@ -13,7 +13,6 @@ function Author (props) {
         url,
         username
     } = mastodon_account;
-    // console.log(mastodon_account);
 
     const mastodon_site_account = `${acct}@${mastodon_site}`;
     return (
