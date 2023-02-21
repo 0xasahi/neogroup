@@ -5,7 +5,7 @@ const express = require('express');
 require = require('esm')(module);
 
 let config = {
-  devMode: true,
+  devMode: process.env.NODE_ENV !== 'production',
   port: 3030,
   host: '0.0.0.0',
   getComponent(name, _context) {
