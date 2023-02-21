@@ -82,7 +82,6 @@ function Topic (props) {
             </div>
             <Author {...user} showNote={true} authored_at={updated_at} />
             <div
-                onClick={() => alert('This String was rendered on the client')}
                 className='topic-content'
                 dangerouslySetInnerHTML={{
                     __html: DOMPurify.sanitize(html_content)

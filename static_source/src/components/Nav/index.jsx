@@ -2,21 +2,15 @@ import React, {useRef, useEffect} from 'react';
 import {isBrowser} from '../../common/utils';
 import './style.scss';
 
-export const NavBar = () => {
+export const NavBar = (props) => {
     const path = isBrowser() ? location.pathname : '';
-
-    const items = [
-        ['/', '首页'],
-        ['https://neodb.social/', '书影音'],
-        ['/group/create', '创建小组'],
-        ['/login', '登录'],
-    ]
-    const menuItems = items.map(([url, name]) => (
+    const items = props;
+    const menuItems = Object.values(items).map(([url, name]) => (
         <li>
-            <a href={url} class={path === url ? 'active' : ''}>{name}</a>
-        </li>
-    ))
-    const navRef = useRef(null);
+            <a href={url} className={path === url ? 'active' : ''}>{name}</a>
+        </li>))
+
+const navRef = useRef(null);
     const toggleIconRef = useRef(null);
 
     useEffect(() => {
@@ -48,20 +42,20 @@ export const NavBar = () => {
 
     return (
         <div className='nav-bar'>
-            <div class="nav-wrapper">
-                <a class="logo" href="/">
+            <div className="nav-wrapper">
+                <a className="logo" href="/">
                     <img width={48} src="/static/img/logo_blue.png" alt="neogrp" />
                 </a>
                 <ul id="menu">
                     {menuItems}
                 </ul>
             </div>
-            <div class="menuIcon" ref={toggleIconRef}>
-                <span class="icon icon-bars"></span>
-                <span class="icon icon-bars overlay"></span>
+            <div className="menuIcon" ref={toggleIconRef}>
+                <span className="icon icon-bars"></span>
+                <span className="icon icon-bars overlay"></span>
             </div>
 
-            <div class="overlay-menu" ref={navRef}>
+            <div className="overlay-menu" ref={navRef}>
                 <ul id="menu">
                     {menuItems}
                 </ul>

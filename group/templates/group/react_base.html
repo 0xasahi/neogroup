@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load react %}
 {% load admin_url %}
-{% load mastodon %}
+{% load nav %}
 {% load oauth_token %}
 
 <!DOCTYPE html>
@@ -24,7 +24,8 @@
 
 <body onload="document.querySelector('html').classList.remove('no-js');"></body>
     {% block body %}
-    {% react_render component="Nav" no_placeholder=1%}
+    {% nav_items as nav_props %}
+    {% react_render component="Nav" props=nav_props no_placeholder=1%}
     <div class="content">
         <div class="main">
         {% block content %}

@@ -7,6 +7,13 @@ export default defineConfig({
   define: {
     'process.env': process.env,
   },
+  terserOptions: {
+    // 生产环境下移除console
+    compress: {
+      drop_console: true,
+      drop_debugger: true
+    }
+  },
   build: {
     lib: {
       formats: ['cjs'],
