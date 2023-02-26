@@ -1,3 +1,4 @@
+import {useEffect, useLayoutEffect} from 'react';
 import { intervalToDuration } from 'date-fns';
 
 export function getTimeDiffStr(date1, date2) {
@@ -6,6 +7,7 @@ export function getTimeDiffStr(date1, date2) {
     end: date2,
   });
   const { years, months, days, hours, minutes, seconds } = diff;
+
   if (years > 0) {
     return `${years}年前`;
   }
@@ -30,3 +32,5 @@ export function getTimeDiffStr(date1, date2) {
 export function isBrowser () {
   return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 }
+
+export const useIsomorphicLayoutEffect = isBrowser() ? useLayoutEffect : useEffect;

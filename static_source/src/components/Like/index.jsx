@@ -24,6 +24,13 @@ function Like (props) {
                     likeCount: s.likeCount + (nowLiked ? 1 : -1)
                 }));
             }
+            else {
+                alert(res.data.msg);
+            }
+        }).catch((err) => {
+            if (err.response && err.response.status === 403) {
+                alert("请先登录");
+            }
         })
     }
 
