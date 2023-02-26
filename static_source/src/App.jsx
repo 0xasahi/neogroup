@@ -17,4 +17,4 @@ const serverExport = {
     TopicSidebar
 }
 
-module.exports = isBrowser() ? clientExport : serverExport;
+export default isBrowser() ? clientExport : serverExport;

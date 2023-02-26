@@ -5,7 +5,7 @@ import Comment from '../Comment';
 import ReplyForm from '../ReplyForm';
 import Pagination from '../Pagination';
 import axiosInstance from '../../common/axios';
-import {isBrowser} from '../../common/utils';
+import { isBrowser} from '../../common/utils';
 import './style.scss';
 
 const useIsomorphicLayoutEffect = isBrowser() ? useLayoutEffect : useEffect;

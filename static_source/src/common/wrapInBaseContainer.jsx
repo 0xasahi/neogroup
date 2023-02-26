@@ -1,5 +1,4 @@
 import React from 'react';
-import {convertObjectKeys} from './CaseConverters.js';
 
 const wrapInAppContainer = (WrappedComponent) => {
   const WrappedInApp = (props) => {

@@ -1,13 +1,13 @@
-const hypernova = require('hypernova/server');
-const renderReact = require('hypernova-react').renderReact;
-const express = require('express');
+import hypernova from 'hypernova/server';
+import { renderReact } from 'hypernova-react';
+import express from 'express';
+import * as App from './App';
 
 require = require('esm')(module);
 
 let config = {
   devMode: process.env.NODE_ENV !== 'production',
   port: 3030,
-  host: '0.0.0.0',
   getComponent(name, _context) {
     if (name.indexOf('C.') !== 0) {
       return null;
@@ -15,10 +15,12 @@ let config = {
 
     try {
       const componentName = name.split('.').slice(-1)[0];
-      const Containers = require('./App');
+      const Containers = App.default;
       const Component = Containers[componentName];
       return renderReact(componentName, Component);
     } catch (e) {
+      console.error(e);
+
       return null;
     }
   },

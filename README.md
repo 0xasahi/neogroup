@@ -41,3 +41,10 @@ https://github.com/anig1scur/neogroup/blob/style/static_source/src/components/Na
 
 也可以[传 props ](https://github.com/anig1scur/neogroup/blob/style/group/templates/group/react_topic.html#L12) 到组件中，更多使用请看 [django-react-templatetags](https://github.com/Frojd/django-react-templatetags)
 
+
+### Server Side Rendering
+
+```sh
+cd static_source
+node hypernova-bootstrap.js
+```

@@ -34,7 +34,7 @@ body {
   .sidebar {
     flex: auto;
     margin-left: 1rem;
-    background-color: $white2;
+    // background-color: $white2;
     @media screen and (max-width: 540px) {
       display: none;
     }

@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="{% static 'react/style.css' %}">
 </head>
 
-<body onload="document.querySelector('html').classList.remove('no-js');"></body>
+<body onload="document.querySelector('html').classList.remove('no-js');">
     {% block body %}
     {% nav_items as nav_props %}
     {% react_render component="Nav" props=nav_props no_placeholder=1%}
