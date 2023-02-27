@@ -21,7 +21,7 @@
 
     <title>{{ site_name }} - {%block title%}{%endblock%}</title>
 
-    {% include "common_libs.html" with jquery=1 %}
+    {% include "libs/common.html" with jquery=1 %}
 
     <script src="{% static 'js/mastodon.js' %}" defer></script>
     <script src="{% static 'js/home.js' %}" defer></script>

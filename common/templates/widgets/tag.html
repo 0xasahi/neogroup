@@ -4,14 +4,9 @@
 <script>
     new inputTags({
         container: document.getElementsByClassName("tag-input")[0],
-        tags : [{% for tag in widget.value %}"{{ tag }}",{% endfor %}],
+        tags: [{% for tag in widget.value %}"{{ tag }}", {% endfor %}],
         allowDuplicateTags : false,
         duplicateTime: 300,
-        onTagRemove : function (tag) {},
+        onTagRemove : function (tag) { },
     });
 </script>
-    
-
-
-    
-    

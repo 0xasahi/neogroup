@@ -24,7 +24,7 @@
     <ul>
         {% for comment in my_groups_comments %}
         <li>
-        <a href="{% url 'group:topic' comment.topic.id %}">{{comment.content | truncatechars:40}}</a> - from <a href="{% url 'group:group' comment.topic.group.id %}">{{comment.topic.group.name}}</a>
+        <a href="{{ comment.absolute_url }}">{{comment.content | truncatechars:40}}</a> - from <a href="{% url 'group:group' comment.topic.group.id %}">{{comment.topic.group.name}}</a>
         </li>
         {% endfor %}
     </ul>
@@ -83,7 +83,7 @@
     <ul>
         {% for comment in last_comments %}
         <li>
-        <a href="{% url 'group:topic' comment.topic.id %}">{{comment.content}}</a> - from <a href="{% url 'group:profile' comment.user.mastodon_username %}">{{comment.user.mastodon_username}}</a>
+        <a href="{{ comment.absolute_url }}">{{comment.content}}</a> - from <a href="{% url 'group:profile' comment.user.mastodon_username %}">{{comment.user.mastodon_username}}</a>
         </li>
         {% endfor %}
     </ul>

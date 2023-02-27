@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "common",
     "users",
     "group",
+    "django_react_templatetags"
 ]
 
 MIDDLEWARE = [
@@ -78,6 +79,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "neogroup.context_processors.site_info",
+                'django_react_templatetags.context_processors.react_context_processor',
             ],
         },
     },
@@ -195,7 +197,6 @@ CLIENT_NAME = os.environ.get("APP_NAME", "NeoGroup")
 SITE_INFO["site_name"] = os.environ.get("APP_NAME", "NeoGroup")
 APP_WEBSITE = os.environ.get("APP_URL", "https://neogrp.club")
 REDIRECT_URIS = APP_WEBSITE + "/users/OAuth2_login/"
-
 # Timeout of requests to Mastodon, in seconds
 MASTODON_TIMEOUT = 30
 
@@ -261,6 +262,13 @@ RQ_QUEUES = {
 }
 
 RQ_SHOW_ADMIN_LINK = True
+
+# React
+REACT_COMPONENT_PREFIX = 'C.'
+# SSR
+REACT_RENDER_HOST = 'http://localhost:3030/batch'
+REACT_SSR_SERVICE = "django_react_templatetags.ssr.hypernova.HypernovaService"
+
 
 try:
     from neogroup.local_settings import *

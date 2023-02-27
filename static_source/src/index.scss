@@ -1,0 +1,42 @@
+@import './common/color.scss';
+
+body {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  font-family: system, -apple-system, "PingfangSC", "Hiragino Sans GB", Microsoft YaHei, Roboto, Helvetica, Arial, sans-serif;
+}
+
+.content {
+  display: flex;
+  max-width: calc(min(100vw, 1200px));
+  overflow-x: hidden;
+  margin: auto;
+  margin-top: 3rem;
+  justify-content: center;
+  line-height: 1.7;
+  font-size: 15px;
+  color: $black0;
+  min-height: calc(100vh - 3rem);
+
+  .main {
+    overflow: hidden;
+    background-color: $white2;
+    @media screen and (max-width: 720px) {
+      width: 100%;
+      padding: 0.8rem 1rem;
+    }
+    width: 68%;
+    min-width: 68%;
+    padding: 1.6rem 2.4rem;
+  }
+
+  .sidebar {
+    flex: auto;
+    margin-left: 1rem;
+    // background-color: $white2;
+    @media screen and (max-width: 540px) {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+.user {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  &-avatar {
+    width: 6rem;
+    height: auto;
+    margin-right: 1.6rem;
+    border-radius: 2rem;
+  }
+  &-name {
+    color: #868886;
+    font-size: 2rem;
+  }
+}

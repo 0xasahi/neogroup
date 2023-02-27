@@ -12,7 +12,6 @@
                 <ul class="navbar__link-list">
 
                     {% if request.user.is_authenticated %}
-
                         <a class="navbar__link {% if current == 'home' %}current{% endif %}" href="/">{% trans '主页' %}</a>
                         <a class="navbar__link" href="https://neodb.social/" target="_blank">{% trans '书影音' %}</a>
                         <a class="navbar__link" href="{% url 'group:create' %}">{% trans '创建小组' %}</a>
