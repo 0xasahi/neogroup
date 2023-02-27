@@ -1,5 +1,5 @@
-import React, {useRef, useEffect} from 'react';
-import {isBrowser} from '../../common/utils';
+import React, {useRef} from 'react';
+import {isBrowser, useIsomorphicLayoutEffect} from '../../common/utils';
 import './style.scss';
 
 export const NavBar = (props) => {
@@ -10,10 +10,10 @@ export const NavBar = (props) => {
             <a href={url} className={path === url ? 'active' : ''}>{name}</a>
         </li>))
 
-const navRef = useRef(null);
+    const navRef = useRef(null);
     const toggleIconRef = useRef(null);
 
-    useEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         const nav = navRef.current;
         const toggleIcon = toggleIconRef.current;
 

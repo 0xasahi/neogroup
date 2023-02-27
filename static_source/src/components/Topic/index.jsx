@@ -1,14 +1,13 @@
-import React, {useLayoutEffect, useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import DOMPurify from 'isomorphic-dompurify';
 import Author from '../Author';
 import Comment from '../Comment';
 import ReplyForm from '../ReplyForm';
 import Pagination from '../Pagination';
 import axiosInstance from '../../common/axios';
-import { isBrowser} from '../../common/utils';
+import { useIsomorphicLayoutEffect } from '../../common/utils';
 import './style.scss';
 
-const useIsomorphicLayoutEffect = isBrowser() ? useLayoutEffect : useEffect;
 
 function Topic (props) {
     const [comments, setComments] = useState(props.comments || []);

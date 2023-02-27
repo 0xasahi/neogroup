@@ -42,6 +42,10 @@ class Group(models.Model, SerializerMixin):
     def __str__(self):
         return self.name
 
+    @property
+    def absolute_url(self):
+        return settings.APP_WEBSITE + reverse("group:group", kwargs={"group_id": self.id})
+
 
 class GroupMember(models.Model, SerializerMixin):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -2,7 +2,6 @@ import React from 'react';
 import './style.scss';
 
 function GroupCard (props) {
-    // console.log(props);
     const {
         created_at,
         description,
@@ -10,13 +9,17 @@ function GroupCard (props) {
         id,
         name,
         updated_at,
+        absolute_url
     } = props;
 
     return (
         <div className='group-card'>
-            <img className='group-card-avatar' src={
-                (icon_url && ('/media/' + icon_url)) || '/static/img/logo_blue.png'
-            } />
+            <a href={absolute_url}>
+                <img className='group-card-avatar'
+                    src={
+                        (icon_url && ('/media/' + icon_url)) || '/static/img/logo_blue.png'
+                    } />
+            </a>
             <div className='group-card-info'>
                 <div className='group-card-name'>
                     {name}

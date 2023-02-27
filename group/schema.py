@@ -32,6 +32,7 @@ class Groupchema(Schema):
     created_at = fields.DateTime()
     updated_at = fields.DateTime()
     icon_url = fields.Str()
+    absolute_url = fields.Str()
 
 
 class TopicSchema(Schema):
