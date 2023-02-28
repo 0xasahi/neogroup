@@ -201,7 +201,9 @@ def topic(request, topic_id):
     }
 
     return render(request, "group/react_topic.html", {
-        "topic": topic_props, "sidebar": sidebar_props})
+        "title": topic.title,
+        "topic": topic_props,
+        "sidebar": sidebar_props})
 
 
 def get_comments(request, topic_id):
