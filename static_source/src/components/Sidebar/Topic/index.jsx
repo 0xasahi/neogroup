@@ -1,8 +1,8 @@
 import './style.scss';
 import '../../../common/sidebar.scss';
 import React from 'react';
-import GroupCard from '../../GroupCard';
-import TopicCard from '../../TopicCard';
+import GroupCard from '../../Card/Group';
+import TopicCard from '../../Card/Topic';
 
 function TopicSidebar (props) {
     const {group, last_topics} = props;

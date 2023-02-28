@@ -4,13 +4,16 @@ body {
   margin: 0;
   box-sizing: border-box;
   padding: 0;
-  font-family: system, -apple-system, "PingfangSC", "Hiragino Sans GB", Microsoft YaHei, Roboto, Helvetica, Arial, sans-serif;
+  font-family: system, -apple-system, 'PingfangSC', 'Hiragino Sans GB', Microsoft YaHei, Roboto, Helvetica, Arial,
+    sans-serif;
 }
 
 .content {
   display: flex;
-  max-width: calc(min(100vw, 1200px));
-  overflow-x: hidden;
+  max-width: min(95%, 1200px);
+  @media screen and (max-width: 720px) {
+    max-width: 100%;
+  }
   margin: auto;
   margin-top: 3rem;
   justify-content: center;
@@ -33,8 +36,8 @@ body {
 
   .sidebar {
     flex: auto;
-    margin-left: 1rem;
-    // background-color: $white2;
+    margin: 0 1rem;
+    background-color: $white2;
     @media screen and (max-width: 540px) {
       display: none;
     }

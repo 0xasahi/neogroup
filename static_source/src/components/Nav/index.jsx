@@ -1,19 +1,34 @@
-import React, {useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {isBrowser, useIsomorphicLayoutEffect} from '../../common/utils';
 import './style.scss';
 
 export const NavBar = (props) => {
+    const {title, items} = props;
     const path = isBrowser() ? location.pathname : '';
-    const items = props;
     const menuItems = Object.values(items).map(([url, name]) => (
         <li>
             <a href={url} className={path === url ? 'active' : ''}>{name}</a>
-        </li>))
-
+        </li>)
+    )
+    const [titleVisible, setTitleVisible] = useState(false);
     const navRef = useRef(null);
     const toggleIconRef = useRef(null);
 
+
+    const listenToScroll = () => {
+        if (window.scrollY > 80) {
+            setTitleVisible(true);
+        } else {
+            setTitleVisible(false);
+        }
+    }
+
     useIsomorphicLayoutEffect(() => {
+        window.addEventListener('scroll', listenToScroll);
+        return () => window.removeEventListener('scroll', listenToScroll);
+    });
+
+    useEffect(() => {
         const nav = navRef.current;
         const toggleIcon = toggleIconRef.current;
 
@@ -41,11 +56,14 @@ export const NavBar = (props) => {
     }, []);
 
     return (
-        <div className='nav-bar'>
+        <div className='nav'>
             <div className="nav-wrapper">
-                <a className="logo" href="/">
-                    <img width={48} src="/static/img/logo_blue.png" alt="neogrp" />
-                </a>
+                <div class="nav-wrapper-left">
+                    <a className="logo" href="/">
+                        <img width={48} src="/static/img/logo_blue.png" alt="neogrp" />
+                    </a>
+                    <div className={`title${(titleVisible && ' show') || ''}`}> {title} </div>
+                </div>
                 <ul id="menu">
                     {menuItems}
                 </ul>
@@ -65,3 +83,4 @@ export const NavBar = (props) => {
 }
 
 export default NavBar;
+

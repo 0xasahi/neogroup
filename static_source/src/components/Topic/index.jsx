@@ -5,9 +5,8 @@ import Comment from '../Comment';
 import ReplyForm from '../ReplyForm';
 import Pagination from '../Pagination';
 import axiosInstance from '../../common/axios';
-import { useIsomorphicLayoutEffect } from '../../common/utils';
+import {useIsomorphicLayoutEffect} from '../../common/utils';
 import './style.scss';
-
 
 function Topic (props) {
     const [comments, setComments] = useState(props.comments || []);
