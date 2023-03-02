@@ -353,7 +353,7 @@ def group_edit(request, group_id):
             group = form.save(commit=False)
             # group.user = request.user
             group.save()
-        return redirect("group:group_edit", group_id=group_id)
+        return redirect("group:group", group_id=group_id)
     group_form = GroupSettingsForm(instance=group)
     return render(request, "group/group_edit.html", {"form": group_form})
 
