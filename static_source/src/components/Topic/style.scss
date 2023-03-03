@@ -14,12 +14,13 @@ body {
   &-content {
     color: $black;
     margin-left: 3.6rem;
+    white-space: pre-wrap;
   }
 
   .title {
     @include line-clamp(2, 3);
     max-width: 100%;
-    font-size: 1.7rem;
+    font-size: 1.8rem;
     color: $black;
     margin-bottom: 1rem;
   }
@@ -30,6 +31,7 @@ body {
     margin: 24px 0 24px;
     border-top: solid 1px #ccc;
   }
+
   .comments {
     &-wrapper {
       width: 100%;

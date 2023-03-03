@@ -1,4 +1,5 @@
 @import '../../common/color.scss';
+@import '../../common/utils.scss';
 
 .author {
   display: flex;
@@ -47,8 +48,7 @@
         }
         .note {
           white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
+          @include line-clamp(1);
           div {
             margin-block-start: 0;
             margin-block-end: 0;
