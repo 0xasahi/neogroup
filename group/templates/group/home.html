@@ -32,40 +32,30 @@
 <div class="dividing-line"></div>
 {% endif %}
 
-{% if my_groups %}
-<div>
-    <h5>我加入的小组</h5>
-    <ul>
-        {% for my_group in my_groups %}
-        <li style="font-size: 16px;">
-        {% if my_group.group.icon_url %}
-        <img width="64" height="64" src="{{my_group.group.icon_url|thumb:'group'}}" class="entity-detail__avatar">
-        {% endif %}
-        <a href="{% url 'group:group' my_group.group.id %}">{{my_group.group.name}}</a>
-        - {{my_group.group.description | truncatechars:40}}
-        </li>
-        {% endfor %}
-    </ul>
-</div>
-<div class="dividing-line"></div>
-{% endif %}
+{% for gl in groups_lists %}
+    {% if gl.0 %}
+        <div>
+            <h5>{{gl.1}}</h5>
+            <ul>
+            {% for g in gl.0 %}
+                <li style="font-size: 16px;display: flex">
+                {% if g.icon_url %}
+                    <div style="flex: 0 0 auto;margin-right: 15px">
+                        <img width="64" height="64" src="{{g.icon_url|thumb:'group'}}" class="entity-detail__avatar">
+                    </div>
+                {% endif %}
+                    <div style="align-self: center">
+                        <a href="{% url 'group:group' g.id %}">{{g.name}}</a>
+                        - {{g.description | truncatechars:40}}
+                    </div>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="dividing-line"></div>
+    {% endif %}
+{% endfor %}
 
-<div>
-    <h5>全部小组</h5>
-    <ul>
-        {% for group in groups %}
-        <li style="font-size: 16px;">
-        {% if group.icon_url %}
-        <img width="64" height="64" src="{{group.icon_url|thumb:'group'}}" class="entity-detail__avatar">
-        {% endif %}
-        <a href="{% url 'group:group' group.id %}">{{group.name}}</a>
-        - {{group.description | truncatechars:40}}
-        </li>
-        {% endfor %}
-    </ul>
-</div>
-
-<div class="dividing-line"></div>
 <div>
     <h5>最新帖子</h5>
     <ul>
