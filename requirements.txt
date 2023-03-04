@@ -1,6 +1,6 @@
 dateparser
 Django==4.1.5
-django-markdownx @ git+https://github.com/alphatownsman/django-markdownx.git@e69480c64ad9c5d0499f4a8625da78cf2bb7691b
+django-markdownx @git+https://github.com/alphatownsman/django-markdownx.git@e69480c64ad9c5d0499f4a8625da78cf2bb7691b
 django-rq
 django-simple-history
 django-user-messages

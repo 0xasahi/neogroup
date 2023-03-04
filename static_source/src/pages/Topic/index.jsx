@@ -85,7 +85,8 @@ function Topic (props) {
                     __html: DOMPurify.sanitize(html_content)
                 }}
             />
-            <div className='divide'></div>
+
+            <div className='divide'/>
             <div className='comments-wrapper'>
                 <div className='comments'>
                     {comments.map((comment, index) =>

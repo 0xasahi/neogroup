@@ -4,7 +4,7 @@
   display: flex;
   max-width: 100%;
   flex-direction: column;
-  color: $black;
+  color: $gray2;
   &-hd {
     display: flex;
     justify-content: space-between;
@@ -16,10 +16,36 @@
         }
       }
       &-base {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0.4rem 0;
+        margin-left: 2rem;
+        .group-name {
+          font-size: 1.2rem;
+          color: $black0;
+        }
+      }
+      &-join-button {
+        height: 2rem;
+        padding: 0 0.7rem;
+        border-radius: 0.5rem;
+        background-color: $purple0;
+        color: $white;
+        font-size: 1rem;
+        text-align: center;
+        line-height: 2rem;
+        cursor: pointer;
+        border: 1px solid $purple;
       }
     }
   }
 
   &-bd {
+    margin-top: 1rem;
+    span {
+      font-size: 1.2rem;
+      color: $black0;
+    }
   }
 }

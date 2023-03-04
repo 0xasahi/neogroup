@@ -289,51 +289,50 @@ def delete_comment(request, comment_id):
 def join(request, group_id):
     group = Group.objects.filter(id=group_id).first()
     if not group:
-        return render(
-            request,
-            "common/error.html",
+        return JsonResponse(
+          
             {
                 "msg": "小组不存在",
-                "secondary_msg": "",
+                "r": 1,
             },
         )
     if not GroupMember.is_member(request.user, group):
         GroupMember.objects.create(user=request.user, group=group)
     else:
-        return render(
-            request,
-            "common/error.html",
-            {
-                "msg": "你已经是小组成员了",
-                "secondary_msg": "",
-            },
-        )
-    return redirect("group:group", group_id=group_id)
+        return JsonResponse({
+            "msg": "你已经是小组成员了",
+            "r": 1,
+        })
+
+        
+    return  JsonResponse({
+        'mag': "加入成功",
+        "r" : 0
+    })
+    # return redirect("group:group", group_id=group_id)
 
 
 def leave(request, group_id):
     group = Group.objects.filter(id=group_id).first()
     if not group:
-        return render(
-            request,
-            "common/error.html",
+        return JsonResponse(
+
             {
                 "msg": "小组不存在",
-                "secondary_msg": "",
+                "r": 1,
             },
         )
     if GroupMember.is_member(request.user, group):
         GroupMember.objects.filter(user=request.user, group=group).delete()
     else:
-        return render(
-            request,
-            "common/error.html",
-            {
-                "msg": "你不是小组成员",
-                "secondary_msg": "",
-            },
-        )
-    return redirect("group:group", group_id=group_id)
+        return JsonResponse({
+            'msg': "你不是小组成员",
+            "r": 1
+        })
+    return JsonResponse({
+         'msg': "退出成功",
+        'r': 0
+    })
 
 
 def group_edit(request, group_id):

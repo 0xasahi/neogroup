@@ -61,3 +61,11 @@ class BaseCommentSchema(Schema):
 
 class CommentSchema(BaseCommentSchema):
     comment_reply = fields.Nested(BaseCommentSchema)
+
+
+class GroupMemberSchema(Schema):
+    user = fields.Nested(UserSchema)
+    group = fields.Nested(Groupchema)
+    join_reason = fields.Str()
+    created_at = fields.DateTime()
+    updated_at = fields.DateTime()
