@@ -1,9 +1,9 @@
 import React, {useEffect, useState, useRef} from 'react';
 import DOMPurify from 'isomorphic-dompurify';
-import Author from '../Author';
-import Comment from '../Comment';
-import ReplyForm from '../ReplyForm';
-import Pagination from '../Pagination';
+import Author from '../../components/Author';
+import Comment from '../../components/Comment';
+import ReplyForm from '../../components/ReplyForm';
+import Pagination from '../../components/Pagination';
 import axiosInstance from '../../common/axios';
 import {useIsomorphicLayoutEffect} from '../../common/utils';
 import './style.scss';

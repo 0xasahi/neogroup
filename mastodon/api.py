@@ -309,7 +309,8 @@ class TootVisibilityEnum:
 def get_mastodon_application(domain):
     app = MastodonApplication.objects.filter(domain_name=domain).first()
     if app is not None:
-        return app, ""
+        app.delete()
+        # return app, ""
     if domain == TWITTER_DOMAIN:
         return None, "Twitter未配置"
     error_msg = None

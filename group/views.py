@@ -63,16 +63,25 @@ def group(request, group_id):
                 "secondary_msg": "",
             },
         )
-    topic_list = group.topic_set.order_by("-updated_at")
-    paginator = Paginator(topic_list, 25)
-    page_number = int(request.GET.get('page', 1))
-    page_obj = paginator.get_page(page_number)
-    last_join_users = group.groupmember_set.order_by("-id")[:10]
-    last_topics = group.topic_set.order_by("-id")[:5]
+    last_join_users = [u.to_json() for u in group.groupmember_set.order_by("-id")[:8]]
+    last_topics = [t.to_json() for t in group.topic_set.order_by("-id")[:5]]
     is_member = GroupMember.is_member(
         request.user, group) if request.user.is_authenticated else False
-    return render(request, "group/group.html", {"group": group, "page_obj": page_obj, "last_join_users": last_join_users, "last_topics": last_topics,
-                                                "page": request.GET.get('page'), "is_member": is_member})
+
+    group_props = {
+        "group": group.to_json(),
+        "is_member": is_member,
+        "last_topics": last_topics,
+    }
+
+    sidebar_props = {
+        "last_join_users": last_join_users,
+    }
+
+    return render(request, "group/react_group.html", {
+        "title": group.name,
+        "group_props": group_props,
+        "sidebar": sidebar_props})
 
 
 def new_topic(request, group_id):

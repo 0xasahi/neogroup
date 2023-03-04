@@ -26,12 +26,12 @@
     {% block body %}
     {% nav_items as nav_props %}
     {% react_render component="Nav" props=nav_props no_placeholder=1%}
-    <div class="content">
-        <div class="main">
+    <div id="content">
+        <div id="main">
         {% block content %}
         {% endblock %}
         </div>
-        <div class="sidebar">
+        <div id="sidebar">
         {% block sidebar %}
         {% endblock %}
         </div>

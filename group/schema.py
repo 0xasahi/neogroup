@@ -47,6 +47,7 @@ class TopicSchema(Schema):
     absolute_url = fields.Str()
     html_content = fields.Str()
 
+
 class BaseCommentSchema(Schema):
     id = fields.Int()
     user = fields.Nested(UserSchema)

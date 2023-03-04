@@ -2,7 +2,7 @@
 
 .nav {
   display: flex;
-  height: 3.2rem;
+  height: 3rem;
   width: 100vw;
   background: $purple0;
   color: $white;
@@ -25,17 +25,24 @@
     height: 100%;
     margin: auto;
     justify-content: space-between;
-    width: min(95%, 1300px);
-
+    width: min(95%, 1200px);
+    @media screen and (max-width: 540px) {
+      width: 100%;
+    }
     &-left {
       display: flex;
       align-items: center;
       .logo {
-        height: 48px;
-        width: 48px;
+        height: 2.5rem;
+        width: 2.5rem;
         background-color: white;
         border-radius: 50%;
+        margin-left: 0.5rem;
+        img {
+          width: 2.5rem;
+        }
       }
+
       .title {
         width: 85%;
         font-size: 1.4rem;
@@ -123,18 +130,10 @@
     }
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 540px) {
     .nav-wrapper ul {
       display: none;
     }
-  }
-  @media (orientation: landscape) {
-    .nav-wrapper ul {
-      display: inline-block;
-    }
-  }
-
-  @media (max-width: 540px) {
     .menuIcon {
       cursor: pointer;
       display: block;
@@ -142,7 +141,7 @@
       right: 0.6rem;
       width: 1.8rem;
       top: 0.2rem;
-      height: 3.2rem;
+      height: 3rem;
       z-index: 14;
     }
 

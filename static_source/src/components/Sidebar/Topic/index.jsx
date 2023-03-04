@@ -1,7 +1,7 @@
 import './style.scss';
 import '../../../common/sidebar.scss';
 import React from 'react';
-import GroupCard from '../../Card/Group';
+import SimpleGroupCard from '../../Card/SimpleGroup';
 import TopicCard from '../../Card/Topic';
 
 function TopicSidebar (props) {
@@ -9,7 +9,7 @@ function TopicSidebar (props) {
     return (
         <div className='sidebar'>
             <div className='sidebar-group'>
-                <GroupCard {...group} />
+                <SimpleGroupCard {...group} />
             </div >
             <span className='sidebar-title'>正在发生</span>
             <div className='sidebar-topics'>

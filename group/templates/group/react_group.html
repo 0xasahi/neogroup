@@ -1,0 +1,20 @@
+{% extends "group/react_base.html" %}
+{% block extra_head %}
+<meta property="og:title" content="{{group.name}}">
+<meta property="og:description" name="description" content="{{group.description | truncatechars:100}}">
+{% endblock %}
+
+{% load react %}
+{% load static %}
+
+{% block title %}
+{{name}}
+{% endblock %}
+
+{% block content %}
+{% react_render component="Group" props=group_props no_placeholder=1 %}
+{% endblock %}
+
+{% block sidebar %}
+{% react_render component="GroupSidebar" props=sidebar no_placeholder=1 %}
+{% endblock %}

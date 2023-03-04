@@ -1,19 +1,23 @@
-import Topic from './components/Topic';
-import Nav from './components/Nav';
-import TopicSidebar from './components/Sidebar/Topic';
-import withHypernova from "./common/withHypernova";
 import {isBrowser} from './common/utils';
+import withHypernova from "./common/withHypernova";
+import Nav from './components/Nav';
+import { TopicSidebar, GroupSidebar, HomeSidebar  } from "./components/Sidebar";
+import { Topic, Group } from './pages';
 
 const clientExport = {
-    Topic: withHypernova('Topic')(Topic),
     Nav: withHypernova('Nav')(Nav),
-    TopicSidebar
+    Topic: withHypernova('Topic')(Topic),
+    TopicSidebar,
+    Group: withHypernova('Group')(Group),
+    GroupSidebar,
 }
 
 const serverExport = {
-    Topic,
     Nav,
-    TopicSidebar
+    Topic,
+    TopicSidebar,
+    Group: withHypernova('Group')(Group),
+    GroupSidebar,
 }
 
 export default isBrowser() ? clientExport : serverExport;
