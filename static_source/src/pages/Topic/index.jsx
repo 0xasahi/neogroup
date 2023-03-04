@@ -24,7 +24,7 @@ function Topic (props) {
         }).then((res) => {
             if (res.status == 200) {
                 if (res.data.r === 0) {
-                    setComments(res.data.comments);
+                    setComments(res.data.data);
                     window.scroll(0, document.querySelector('.comments-wrapper').offsetTop - 100, {
                         behavior: 'smooth'
                     });

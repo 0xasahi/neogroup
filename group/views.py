@@ -1,6 +1,5 @@
 import json
 from django.conf import settings
-from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
@@ -12,6 +11,14 @@ from users.models import User
 from common.config import ITEMS_PER_PAGE
 from group.models import Group, Topic, GroupMember, Comment, LikeComment
 from group.forms import TopicForm, GroupSettingsForm
+
+
+def success(msg="", data=None):
+    return JsonResponse({"r": 0, "msg": msg, "data": data})
+
+
+def error(msg):
+    return JsonResponse({"r": 1, "msg": msg})
 
 
 def render_relogin(request):
@@ -63,8 +70,12 @@ def group(request, group_id):
                 "secondary_msg": "",
             },
         )
+    page = int(request.GET.get("page", 1))
+    page_size = ITEMS_PER_PAGE
+
     last_join_users = [u.to_json() for u in group.groupmember_set.order_by("-id")[:8]]
-    last_topics = [t.to_json() for t in group.topic_set.order_by("-id")[:5]]
+    last_topics = [t.to_json() for t in group.topic_set.order_by(
+        "-id")[(page-1)*page_size: (page-1)*page_size+page_size]]
     is_member = GroupMember.is_member(
         request.user, group) if request.user.is_authenticated else False
 
@@ -72,6 +83,9 @@ def group(request, group_id):
         "group": group.to_json(),
         "is_member": is_member,
         "last_topics": last_topics,
+        "page_size": page_size,
+        "page": page,
+        "total": group.topic_set.count()
     }
 
     sidebar_props = {
@@ -81,7 +95,21 @@ def group(request, group_id):
     return render(request, "group/react_group.html", {
         "title": group.name,
         "group_props": group_props,
-        "sidebar": sidebar_props})
+        "sidebar": sidebar_props
+    })
+
+
+def get_topics(request, group_id):
+    group = Group.objects.filter(id=group_id).first()
+    if not group:
+        return error("小组不存在")
+    page = request.GET.get("page") or 1
+    per_page = ITEMS_PER_PAGE
+    start = (int(page) - 1) * per_page
+
+    topics = [t.to_json()
+              for t in group.topic_set.order_by("-id")[start:start + per_page]]
+    return success(data=topics)
 
 
 def new_topic(request, group_id):
@@ -139,19 +167,14 @@ def topic(request, topic_id):
         )
     if request.method == "POST":
         if not is_member:
-            return JsonResponse({
-                "msg": "你不是小组成员，不能参与话题讨论",
-                "r": 1,
-            })
+            return error("你不是小组成员，不能参与话题讨论")
+
         data = json.loads(request.body.decode('utf-8'))
         comment_reply_id = data.get("comment_reply")
         content = data.get("content")
         comment_reply = None
         if not content:
-            return JsonResponse({
-                "msg": "必须填写评论内容",
-                "r": 1,
-            })
+            return error("评论内容不能为空")
 
         if comment_reply_id:
             comment_reply = Comment.objects.filter(id=comment_reply_id).first()
@@ -172,10 +195,7 @@ def topic(request, topic_id):
                 # FIXME: ajax need_login attention
                 return render_relogin(request)
 
-        return JsonResponse({
-            "msg": "ok",
-            "r": 0,
-        })
+        return success()
 
     comment_id = request.GET.get("comment_id")
     page = int(request.GET.get("page", 1))
@@ -218,20 +238,13 @@ def topic(request, topic_id):
 def get_comments(request, topic_id):
     topic = Topic.objects.filter(id=topic_id).first()
     if not topic:
-        return JsonResponse({
-            "msg": "话题不存在",
-            "r": 1,
-        })
+        return error("话题不存在")
     page = request.GET.get("page") or 1
     per_page = ITEMS_PER_PAGE
     start = (int(page) - 1) * per_page
 
     comments = topic.get_comments_dict(request.user, start, per_page)
-    return JsonResponse({
-        "msg": "ok",
-        "r": 0,
-        "comments": comments,
-    })
+    return success(data=comments)
 
 
 def delete_topic(request, topic_id):
@@ -270,69 +283,30 @@ def delete_topic(request, topic_id):
 def delete_comment(request, comment_id):
     comment = Comment.objects.filter(id=comment_id).first()
     if not comment:
-        return JsonResponse({
-            "msg": "评论不存在",
-            "r": 1,
-        })
+        return error("评论不存在")
     if request.user != comment.user:
-        return JsonResponse({
-            "msg": "你没有权限",
-            "r": 1,
-        })
+        return error("你没有权限")
     comment.delete()
-    return JsonResponse({
-        "msg": "ok",
-        "r": 0,
-    })
+    return success()
 
 
 def join(request, group_id):
     group = Group.objects.filter(id=group_id).first()
     if not group:
-        return JsonResponse(
-          
-            {
-                "msg": "小组不存在",
-                "r": 1,
-            },
-        )
+        return error("小组不存在")
+
     if not GroupMember.is_member(request.user, group):
         GroupMember.objects.create(user=request.user, group=group)
-    else:
-        return JsonResponse({
-            "msg": "你已经是小组成员了",
-            "r": 1,
-        })
-
-        
-    return  JsonResponse({
-        'mag': "加入成功",
-        "r" : 0
-    })
-    # return redirect("group:group", group_id=group_id)
+    return success()
 
 
 def leave(request, group_id):
     group = Group.objects.filter(id=group_id).first()
     if not group:
-        return JsonResponse(
-
-            {
-                "msg": "小组不存在",
-                "r": 1,
-            },
-        )
+        return error("小组不存在")
     if GroupMember.is_member(request.user, group):
         GroupMember.objects.filter(user=request.user, group=group).delete()
-    else:
-        return JsonResponse({
-            'msg': "你不是小组成员",
-            "r": 1
-        })
-    return JsonResponse({
-         'msg': "退出成功",
-        'r': 0
-    })
+    return success()
 
 
 def group_edit(request, group_id):
@@ -398,30 +372,21 @@ def profile(request, mastodon_username):
 
 
 def like_comment(request, comment_id):
-    if request.method != "POST":
-        return JsonResponse({
-            "msg": "请求方式错误",
-            "r": 1,
-        })
-    comment = Comment.objects.filter(id=comment_id).first()
-    if not comment:
-        return JsonResponse({
-            "msg": "评论不存在",
-            "r": 1,
-        })
-    if not request.user.is_authenticated:
-        return JsonResponse({
-            "msg": "请先登录",
-            "r": 1
-        })
-    if not comment.is_liked_by(request.user):
-        liked = 1
-        LikeComment.objects.create(user=request.user, comment=comment)
-    else:
-        LikeComment.objects.filter(user=request.user, comment=comment).delete()
-        liked = 0
-    return JsonResponse({
-        "msg": "ok",
-        "r": 0,
-        "liked": liked,
-    })
+    if request.method == "POST":
+        comment = Comment.objects.filter(id=comment_id).first()
+        if not comment:
+            return error(
+                "评论不存在",
+            )
+        if not request.user.is_authenticated:
+            return error("请先登录")
+        if not comment.is_liked_by(request.user):
+            liked = 1
+            LikeComment.objects.create(user=request.user, comment=comment)
+        else:
+            LikeComment.objects.filter(
+                user=request.user, comment=comment).delete()
+            liked = 0
+        return success(
+            data=liked,
+        )

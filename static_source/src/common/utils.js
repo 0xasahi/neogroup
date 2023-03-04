@@ -1,22 +1,29 @@
-import {useEffect, useLayoutEffect} from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { intervalToDuration } from 'date-fns';
 
-export function getTimeDiffStr(date1, date2) {
+export function getDisplayDate(date1, date2, exactMode = false) {
   const diff = intervalToDuration({
     start: date1,
     end: date2,
   });
   const { years, months, days, hours, minutes, seconds } = diff;
 
-  if (years > 0) {
-    return `${years}年前`;
+  if (years > 0 || months > 0 || days > 0) {
+    if (!exactMode) {
+      if (years > 0) {
+        return `${years}年前`;
+      }
+      if (months > 0) {
+        return `${months}月前`;
+      }
+      if (days > 0) {
+        return `${days}天前`;
+      }
+    } else {
+      return date2.toISOString().slice(0, 10);
+    }
   }
-  if (months > 0) {
-    return `${months}月前`;
-  }
-  if (days > 0) {
-    return `${days}天前`;
-  }
+
   if (hours > 0) {
     return `${hours}小时前`;
   }
@@ -29,7 +36,7 @@ export function getTimeDiffStr(date1, date2) {
   return '刚刚';
 }
 
-export function isBrowser () {
+export function isBrowser() {
   return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 }
 

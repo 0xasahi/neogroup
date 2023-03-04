@@ -1,4 +1,5 @@
 @import './common/color.scss';
+@import './reset.css';
 
 body {
   margin: 0;
@@ -11,6 +12,31 @@ body {
   font-size: 18px;
   @media screen and (max-width: 720px) {
     font-size: 15px;
+  }
+}
+
+.button {
+  color: $white;
+  height: 2rem;
+  padding: 0 0.7rem;
+  min-width: fit-content;
+  border-radius: 0.5rem;
+  background-color: $purple0;
+  font-size: 1rem;
+  text-align: center;
+  line-height: 2rem;
+  cursor: pointer;
+  border: 1px solid $purple;
+  &:hover {
+    color: $purple2;
+  }
+}
+
+a {
+  color: $gray2;
+  text-decoration: none;
+  &:hover {
+    color: $purple2;
   }
 }
 
@@ -37,7 +63,7 @@ body {
     }
     width: 68%;
     min-width: 68%;
-    padding: 1.6rem 2.4rem;
+    padding: 1.2rem 2.4rem;
   }
 
   #sidebar {

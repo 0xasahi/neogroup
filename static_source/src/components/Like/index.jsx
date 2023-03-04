@@ -18,7 +18,7 @@ function Like (props) {
         await axiosInstance.post(`/group/comment/${targetId}/like`, {},
         ).then((res) => {
             if (res.status == 200 && res.data && res.data.r === 0) {
-                let nowLiked = Boolean(res.data.liked);
+                let nowLiked = Boolean(res.data.data);
                 setLikedState(s => ({
                     liked: nowLiked,
                     likeCount: s.likeCount + (nowLiked ? 1 : -1)

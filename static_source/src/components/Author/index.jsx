@@ -1,34 +1,30 @@
 import React from 'react';
 import DOMPurify from 'isomorphic-dompurify';
 import './style.scss';
-import {getTimeDiffStr} from '../../common/utils';
+import {getDisplayDate} from '../../common/utils';
 
 function Author (props) {
-    const {mastodon_site, mastodon_account, authored_at, showNote=false} = props;
+    const {mastodon_username, mastodon_account, authored_at, showNote = false} = props;
     const {
-        acct,
         display_name,
         avatar,
         note,
         url,
-        username
     } = mastodon_account;
 
-    const mastodon_site_account = `${acct}@${mastodon_site}`;
     return (
         <div className='author'>
             <div className='left-side'>
-                <a href={`/group/profile/${mastodon_site_account}/`} className='topic-author' >
-                    <img className="avatar" src={avatar} title={`${username}@${mastodon_site}`} />
+                <a href={`/group/profile/${mastodon_username}/`} className='topic-author' >
+                    <img className="avatar" src={avatar} />
                 </a>
             </div>
             <div className='right-side'>
-                <div className='topic-user' alt={mastodon_site_account}>
+                <div className='topic-user' alt={mastodon_username}>
                     <div className="topic-user-username">
                         <span className="display-name"> {display_name} </span>
-                        {/* 来自:&nbsp; */}
                         <a href={url}  >
-                            <span class='mastodon-account'>{mastodon_site_account}</span>
+                            <span class='mastodon-account'>{mastodon_username}</span>
                         </a>
 
                     </div>
@@ -40,7 +36,7 @@ function Author (props) {
                     />}
                 </div>
                 <div className='authored-at' alt={authored_at} title={authored_at}>
-                    {getTimeDiffStr(new Date(authored_at), new Date())}
+                    {getDisplayDate(new Date(authored_at), new Date())}
                 </div>
             </div>
         </div >

@@ -9,7 +9,7 @@ const clientExport = {
     Topic: withHypernova('Topic')(Topic),
     TopicSidebar,
     Group: withHypernova('Group')(Group),
-    GroupSidebar,
+    GroupSidebar: withHypernova('GroupSidebar')(GroupSidebar),
 }
 
 const serverExport = {

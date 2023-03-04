@@ -18,7 +18,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/logo_square.png' %}">
-    <title>{{ site_name }} - {%block title%}{%endblock%}</title>
+    <title>{%block title%}{%endblock%} - {{ site_name }}</title>
     <link rel="stylesheet" href="{% static 'react/style.css' %}">
 </head>
 

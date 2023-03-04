@@ -96,6 +96,10 @@ class Topic(models.Model, SerializerMixin):
             comment['is_owner'] = user and user.id == comment['user']['id']
         return comments
 
+    @property
+    def comments_count(self):
+        return self.comment_set.count()
+
 
 class Comment(models.Model, SerializerMixin):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)

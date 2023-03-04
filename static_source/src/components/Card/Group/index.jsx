@@ -1,11 +1,10 @@
-import React,{useState} from 'react';
+import React, {useState} from 'react';
 import './style.scss';
 import axiosInstance from '../../../common/axios';
 
 
 function GroupCard (props) {
     const [joinState, setJoinState] = useState(props.is_member)
-    console.log(props)
     const {
         created_at,
         description,
@@ -31,46 +30,44 @@ function GroupCard (props) {
                             {name}
                         </div>
                         <div className='group-owner'>
-                            创建于  {created_at} · 创建者<strong class='user-id'>{user.mastodon_account.acct}</strong>
-                            <span class='user-mastodon_site'>@{user.mastodon_site}</span>
+                            <a href={user.mastodon_account.url} > {user.mastodon_account.display_name} </a>
+                            <br />
+                            创建于：{created_at.slice(0, 10)}
                         </div>
                     </div>
 
                 </div>
-                <div className='group-join-button' onClick={async()=>{
-                    const action=joinState?'leave':'join'
-                    if(action=='leave'){
-                        if(!window.confirm('确定要退出该群组吗？')){
+                <div className='group-join-button button' onClick={async () => {
+                    const action = joinState ? 'leave' : 'join'
+                    if (action == 'leave') {
+                        if (!window.confirm('确定要退出该小组吗？')) {
                             return
                         }
                     }
-              
-
-                    await axiosInstance.post(`/group/${id}/${action}`).then((res)=>{
-                        if(res.data.r==0){
-
+                    await axiosInstance.post(`/group/${id}/${action}`).then((res) => {
+                        if (res.data.r == 0) {
                             setJoinState(!joinState)
-
                         }
-                        else{
-                            alert(res.data.msg)
+                        else {
+                            alert(res.data.msg || "出错了，请联系管理员")
                         }
-
-                    })}
-
-            }>
+                    }).catch((err) => {
+                        if (err.response && err.response.status === 403) {
+                            alert("请先登录");
+                        }
+                    })
+                }
+                }>
                     {
-                        joinState?'已加入':'加入'
+                        joinState ? '退出' : '加入'
                     }
                 </div>
             </div>
 
             <div className='group-card-bd'>
-             
-             
-            <span>
-            简介
-            </span>
+                <span>
+                    简介
+                </span>
                 <div className='group-description'>
                     {description}
                 </div>

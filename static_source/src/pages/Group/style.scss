@@ -6,32 +6,46 @@
   align-items: flex-start;
   width: 100%;
   flex-flow: column;
+
   .topics {
-    width: 80%;
-    table{
+    width: 100%;
+    &-hd {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+
+    }
+
+    table {
       width: 100%;
       border-collapse: collapse;
       border-spacing: 0;
       border: none;
 
-      tbody{
-        tr{
-          td{
-          
-            padding: 0.5rem;
+      tbody {
+        tr {
+          td {
+            color: $gray2;
             text-align: center;
+            padding: 0.3rem 0;
+            a {
+              @include line-clamp(2, 2);
+            }
+          }
+          .topic-title {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            text-align: left;
+            svg {
+              min-width: 1.2rem;
+              max-width: 1.2rem;
+              margin-right: 0.5rem;
+            }
           }
         }
       }
-    }
-    .topic-title {
-      width: 60%;
-    }
-    .topic-author{
-      width: 20%;
-    }
-    .topic-time{
-      width: 20%;
     }
   }
 }
