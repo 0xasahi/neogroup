@@ -1,9 +1,8 @@
-import '../../../common/sidebar.scss';
 import './style.scss';
 import React from 'react';
 
 function GroupSidebar (props) {
-    const {last_join_users} = props;
+    const {last_join_users, operations} = props;
     const accounts = last_join_users.map(u => u.user.mastodon_account);
 
     return (
@@ -20,6 +19,14 @@ function GroupSidebar (props) {
                         </a>) : '这里冷清清的'
                 }
             </div>
+            {operations ? (
+                <div className='operations'>
+                    {
+                        operations.map(o => <a className='operation' href={o[0]}> {o[1]} </a>
+                        )
+                    }
+                </div>
+            ) : null}
         </div >
     );
 }

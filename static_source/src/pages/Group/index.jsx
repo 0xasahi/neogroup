@@ -59,7 +59,7 @@ function GroupHome (props) {
                     <div className="topics-hd-label">
                         最近讨论
                     </div>
-                <a className="topics-hd-add button" href={`/group/${group.id}/new_topic`}>发起讨论</a>
+                    <a className="topics-hd-add button" href={`/group/${group.id}/new_topic`}>发言</a>
                 </div>
                 <table>
                     <tbody>

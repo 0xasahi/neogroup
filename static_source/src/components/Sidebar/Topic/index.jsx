@@ -1,5 +1,4 @@
 import './style.scss';
-import '../../../common/sidebar.scss';
 import React from 'react';
 import SimpleGroupCard from '../../Card/SimpleGroup';
 import TopicCard from '../../Card/Topic';

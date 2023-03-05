@@ -72,10 +72,12 @@ def group(request, group_id):
         )
     page = int(request.GET.get("page", 1))
     page_size = ITEMS_PER_PAGE
+    start = (page-1)*page_size
 
-    last_join_users = [u.to_json() for u in group.groupmember_set.order_by("-id")[:8]]
+    last_join_users = [u.to_json()
+                       for u in group.groupmember_set.order_by("-id")[:8]]
     last_topics = [t.to_json() for t in group.topic_set.order_by(
-        "-id")[(page-1)*page_size: (page-1)*page_size+page_size]]
+        "-id")[start: start+page_size]]
     is_member = GroupMember.is_member(
         request.user, group) if request.user.is_authenticated else False
 
@@ -90,6 +92,10 @@ def group(request, group_id):
 
     sidebar_props = {
         "last_join_users": last_join_users,
+        "operations": [
+            # ['/members', '成员管理'],
+            [f"/group/{group.id}/group_edit", '小组管理'],
+        ]
     }
 
     return render(request, "group/react_group.html", {

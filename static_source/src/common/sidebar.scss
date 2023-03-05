@@ -9,4 +9,15 @@
       margin-bottom: 0.4rem;
     }
   }
+  .operations {
+    padding-top: 1.5rem;
+    .operation {
+      padding: 0.2rem;
+      display: block;
+      &:before {
+        content: '>';
+        z-index: 1;
+      }
+    }
+  }
 }

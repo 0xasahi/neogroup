@@ -59,7 +59,7 @@ function GroupCard (props) {
                 }
                 }>
                     {
-                        joinState ? '退出' : '加入'
+                        joinState ? '已加入' : '加入'
                     }
                 </div>
             </div>
