@@ -1,9 +1,11 @@
 @import './common/color.scss';
+@import './reset.css';
 
 body {
   margin: 0;
   box-sizing: border-box;
   padding: 0;
+  background: $white;
   font-family: system, -apple-system, 'PingfangSC', 'Hiragino Sans GB', Microsoft YaHei, Roboto, Helvetica, Arial,
     sans-serif;
 
@@ -13,10 +15,35 @@ body {
   }
 }
 
-.content {
+.button {
+  color: $white;
+  height: 2rem;
+  padding: 0 0.7rem;
+  min-width: fit-content;
+  border-radius: 0.5rem;
+  background-color: $purple0;
+  font-size: 1rem;
+  text-align: center;
+  line-height: 2rem;
+  cursor: pointer;
+  border: 1px solid $purple;
+  &:hover {
+    color: $purple2;
+  }
+}
+
+a {
+  color: $gray2;
+  text-decoration: none;
+  &:hover {
+    color: $purple2;
+  }
+}
+
+#content {
   display: flex;
   max-width: min(95%, 1200px);
-  @media screen and (max-width: 720px) {
+  @media screen and (max-width: 540px) {
     max-width: 100%;
   }
   margin: auto;
@@ -27,7 +54,7 @@ body {
   color: $black0;
   min-height: calc(100vh - 3rem);
 
-  .main {
+  #main {
     overflow: hidden;
     background-color: $white2;
     @media screen and (max-width: 720px) {
@@ -36,10 +63,10 @@ body {
     }
     width: 68%;
     min-width: 68%;
-    padding: 1.6rem 2.4rem;
+    padding: 1.2rem 2.4rem;
   }
 
-  .sidebar {
+  #sidebar {
     flex: auto;
     margin: 0 1rem;
     background-color: $white2;

@@ -1,22 +1,31 @@
 @import '../../../common/color.scss';
+@import '../../../common/utils.scss';
+@import '../../../common/sidebar.scss';
 
-.comment-quote {
-  padding: 0 0.4rem;
-  display: flex;
-  margin-right: 0.5rem;
-  margin-bottom: 0.2rem;
-  border-left: 2px solid $gray;
-  background-color: $white2;
+.sidebar {
+  margin-top: 2rem;
 
-  &-author {
+  .latest-join {
+    margin-top: 1rem;
+    display: inline-grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 0.6rem;
+    place-items: center;
 
-  }
+    .account {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
 
-  &-content {
-    padding: 5px;
-    font-size: 0.9rem;
-    line-break: anywhere;
-    padding: 3px;
-    opacity: 0.65;
+      &-name {
+        margin-top: 0.2rem;
+        text-align: center;
+        line-height: 1.1rem;
+        @include line-clamp(2);
+      }
+      &-avatar {
+        width: 3rem;
+      }
+    }
   }
 }

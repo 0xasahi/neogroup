@@ -2,23 +2,37 @@
 
 .group-card {
   display: flex;
-  align-items: center;
-  max-width: 100%;
+  width: 100%;
   flex-direction: column;
-  margin: 1rem 0.5rem 1rem 0.2rem;
-  color: $black;
+  color: $gray2;
+  &-hd {
+    display: flex;
+    justify-content: space-between;
+    .group {
+      &-info {
+        display: flex;
+        img {
+          border-radius: 0.5rem;
+          width: 4.5rem;
+        }
+      }
+      &-base {
+        display: flex;
+        flex-direction: column;
+        margin-left: 1rem;
+        .group-name {
+          font-size: 1.6rem;
+          color: $black0;
+        }
+      }
+    }
+  }
 
-  &-avatar {
-    width: 7rem;
-    height: 7rem;
-    border-radius: 1rem;
-  }
-  &-info {
-    color: $gray2;
-    font-size: 0.9rem;
-  }
-  &-name {
-    font-size: 1.6rem;
-    color: $black0;
+  &-bd {
+    margin-top: 1rem;
+    span {
+      font-size: 1.4rem;
+      color: $black0;
+    }
   }
 }

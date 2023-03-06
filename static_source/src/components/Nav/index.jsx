@@ -60,7 +60,7 @@ export const NavBar = (props) => {
             <div className="nav-wrapper">
                 <div class="nav-wrapper-left">
                     <a className="logo" href="/">
-                        <img width={48} src="/static/img/logo_blue.png" alt="neogrp" />
+                        <img src="/static/img/logo_blue.png" alt="neogrp" />
                     </a>
                     <div className={`title${(titleVisible && ' show') || ''}`}> {title} </div>
                 </div>

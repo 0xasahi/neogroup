@@ -22,6 +22,7 @@ class UserSchema(Schema):
     mastodon_account = fields.Raw()
     mastodon_last_refresh = fields.DateTime()
     read_announcement_index = fields.Int()
+    mastodon_username = fields.Str()
 
 
 class Groupchema(Schema):
@@ -46,6 +47,8 @@ class TopicSchema(Schema):
     updated_at = fields.DateTime()
     absolute_url = fields.Str()
     html_content = fields.Str()
+    comments_count = fields.Int()
+
 
 class BaseCommentSchema(Schema):
     id = fields.Int()
@@ -60,3 +63,11 @@ class BaseCommentSchema(Schema):
 
 class CommentSchema(BaseCommentSchema):
     comment_reply = fields.Nested(BaseCommentSchema)
+
+
+class GroupMemberSchema(Schema):
+    user = fields.Nested(UserSchema)
+    group = fields.Nested(Groupchema)
+    join_reason = fields.Str()
+    created_at = fields.DateTime()
+    updated_at = fields.DateTime()

@@ -9,13 +9,7 @@
   float: left;
   color: $gray2;
   font-size: 0.9rem;
-  a {
-    color: $gray2;
-    text-decoration: none;
-    &:hover {
-      color: $purple2;
-    }
-  }
+
   &-description {
     font-size: 0.8rem;
     margin-left: 0.2rem;

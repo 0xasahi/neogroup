@@ -1,8 +1,8 @@
 @import '../../common/color.scss';
+@import '../../common/utils.scss';
 
 .nav {
   display: flex;
-  height: 3.2rem;
   width: 100vw;
   background: $purple0;
   color: $white;
@@ -12,43 +12,43 @@
   position: fixed;
   top: 0;
 
-  a {
-    color: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    text-decoration: none;
-  }
-
   &-wrapper {
     align-items: center;
     display: flex;
     height: 100%;
     margin: auto;
     justify-content: space-between;
-    width: min(95%, 1300px);
-
+    width: min(95%, 1200px);
+    @media screen and (max-width: 540px) {
+      width: 100%;
+      margin-left: 0.2rem;
+    }
     &-left {
       display: flex;
       align-items: center;
       .logo {
-        height: 48px;
-        width: 48px;
         background-color: white;
         border-radius: 50%;
+        margin-left: 0.5rem;
+        margin: 0.2rem 0;
+
+        img {
+          max-width: 2.5rem;
+          vertical-align: middle;
+        }
       }
+
       .title {
         width: 85%;
         font-size: 1.4rem;
 
-        @media (max-width: 640px) {
+        @media (max-width: 540px) {
           width: 70vw;
           font-size: 1.3rem;
         }
         opacity: 0;
         margin-left: 0.8rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        @include line-clamp(1, 1.8);
         &.show {
           transition: all 0.2s ease;
           opacity: 1;
@@ -123,18 +123,10 @@
     }
   }
 
-  @media (max-width: 640px) {
-    .nav-wrapper ul {
+  @media (max-width: 540px) {
+    .nav-wrapper #menu {
       display: none;
     }
-  }
-  @media (orientation: landscape) {
-    .nav-wrapper ul {
-      display: inline-block;
-    }
-  }
-
-  @media (max-width: 540px) {
     .menuIcon {
       cursor: pointer;
       display: block;
@@ -142,7 +134,7 @@
       right: 0.6rem;
       width: 1.8rem;
       top: 0.2rem;
-      height: 3.2rem;
+      height: 3rem;
       z-index: 14;
     }
 
@@ -219,7 +211,9 @@
     width: 100vw;
     height: 100vh;
     transition: transform 0.2s ease-out;
-
+    a {
+      color: $purple3;
+    }
     ul,
     li {
       display: block;

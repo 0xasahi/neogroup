@@ -1,9 +1,9 @@
 import React, {useEffect, useState, useRef} from 'react';
 import DOMPurify from 'isomorphic-dompurify';
-import Author from '../Author';
-import Comment from '../Comment';
-import ReplyForm from '../ReplyForm';
-import Pagination from '../Pagination';
+import Author from '../../components/Author';
+import Comment from '../../components/Comment';
+import ReplyForm from '../../components/ReplyForm';
+import Pagination from '../../components/Pagination';
 import axiosInstance from '../../common/axios';
 import {useIsomorphicLayoutEffect} from '../../common/utils';
 import './style.scss';
@@ -24,7 +24,7 @@ function Topic (props) {
         }).then((res) => {
             if (res.status == 200) {
                 if (res.data.r === 0) {
-                    setComments(res.data.comments);
+                    setComments(res.data.data);
                     window.scroll(0, document.querySelector('.comments-wrapper').offsetTop - 100, {
                         behavior: 'smooth'
                     });
@@ -85,7 +85,8 @@ function Topic (props) {
                     __html: DOMPurify.sanitize(html_content)
                 }}
             />
-            <div className='divide'></div>
+
+            <div className='divide'/>
             <div className='comments-wrapper'>
                 <div className='comments'>
                     {comments.map((comment, index) =>

@@ -1,27 +1,34 @@
 import './style.scss';
-import '../../../common/sidebar.scss';
 import React from 'react';
-import GroupCard from '../../Card/Group';
-import TopicCard from '../../TopicCard';
 
 function GroupSidebar (props) {
-    const {group, last_topics} = props;
+    const {last_join_users, operations} = props;
+    const accounts = last_join_users.map(u => u.user.mastodon_account);
+
     return (
         <div className='sidebar'>
-            <GroupCard {...group} />
-            {last_topics &&
-                (
-                    <div className='sidebar-section'>
-                        <span className='sidebar-section-title'>最近加入</span>
-                        <div className='sidebar-topics'>
-                            {
-                                last_topics.map((topic) => <TopicCard {...topic} />)
-                            }
-                        </div></div>)
-            }
+            <span className='sidebar-title'> 最近加入</span>
+            <div className='latest-join'>
+                {
+                    accounts ? accounts.map((account) =>
+                        <a href={account.url} className='account'>
+                            <img src={account.avatar} className='account-avatar' />
+                            <div className='account-name'>
+                                {account.display_name}
+                            </div>
+                        </a>) : '这里冷清清的'
+                }
+            </div>
+            {operations ? (
+                <div className='operations'>
+                    {
+                        operations.map(o => <a className='operation' href={o[0]}> {o[1]} </a>
+                        )
+                    }
+                </div>
+            ) : null}
         </div >
     );
 }
 
-
-export default TopicSidebar;
+export default GroupSidebar;

@@ -4,7 +4,7 @@ from django.urls import reverse
 from users.models import User
 from common.utils import GenerateDateUUIDMediaFilePath
 from markdown import markdown
-from group.schema import Groupchema, TopicSchema, UserSchema, CommentSchema
+from group.schema import Groupchema, GroupMemberSchema, TopicSchema, UserSchema, CommentSchema
 
 
 def group_image_path(instance, filename):
@@ -20,6 +20,7 @@ class SerializerMixin(object):
             "Topic": TopicSchema,
             "User": UserSchema,
             "Comment": CommentSchema,
+            "GroupMember": GroupMemberSchema,
         }.get(self.__class__.__name__, lambda: {})
 
         return Schema().dump(self)
@@ -94,6 +95,10 @@ class Topic(models.Model, SerializerMixin):
             comment["liked"] = comment["id"] in liked_comments
             comment['is_owner'] = user and user.id == comment['user']['id']
         return comments
+
+    @property
+    def comments_count(self):
+        return self.comment_set.count()
 
 
 class Comment(models.Model, SerializerMixin):

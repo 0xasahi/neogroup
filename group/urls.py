@@ -8,6 +8,7 @@ urlpatterns = [
     path("<int:group_id>/join", join, name="join"),
     path("<int:group_id>/leave", leave, name="leave"),
     path("<int:group_id>/group_edit", group_edit, name="group_edit"),
+    path("<int:group_id>/topics", get_topics, name="topics"),
     path("<int:group_id>/", group, name="group"),
     path("topic/<int:topic_id>/", topic, name="topic"),
     path("topic/<int:topic_id>/comments", get_comments, name="comments"),
