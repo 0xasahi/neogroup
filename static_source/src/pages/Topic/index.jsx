@@ -48,7 +48,7 @@ function Topic (props) {
 
     useEffect(() => {
         if (replyComment && replyFormRef.current) {
-            replyFormRef.current.querySelector('textarea').focus();
+            replyFormRef.current.querySelector('[contenteditable]').focus();
         }
     }, [replyComment]);
 

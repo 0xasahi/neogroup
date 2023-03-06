@@ -9,14 +9,14 @@ const clientExport = {
     Topic: withHypernova('Topic')(Topic),
     TopicSidebar,
     Group: withHypernova('Group')(Group),
-    GroupSidebar: withHypernova('GroupSidebar')(GroupSidebar),
+    GroupSidebar: GroupSidebar,
 }
 
 const serverExport = {
     Nav,
     Topic,
     TopicSidebar,
-    Group: withHypernova('Group')(Group),
+    Group,
     GroupSidebar,
 }
 

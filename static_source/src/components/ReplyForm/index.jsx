@@ -59,7 +59,7 @@ const ReplyForm = React.forwardRef((props, ref) => {
     }
 
     const onSubmit = () => {
-        let content = ref.current.querySelector('textarea').value;
+        let content = ref.current.querySelector('[contentEditable]').value;
         if (!content) {
             alert('请输入一段文字再提交吧');
             return
@@ -85,7 +85,7 @@ const ReplyForm = React.forwardRef((props, ref) => {
                 replyComment && <Quote comment={replyComment} />
             }
             <div className='reply-content'>
-                <textarea placeholder='Neogrp 欢迎文明、友善的交流。' />
+                <div className='reply-content' contentEditable placeholder='Neogrp 欢迎文明、友善的交流。' />
             </div>
             <div className={`reply-action${replyState.sending ? ' disabled' : ''}`} disabled={replyState.sending} >
                 <div className={`share-to-mastodon${replyState.share_to_mastodon ? ' yes' : ''}`} onClick={toggleShareToMastodon} ><FediIcon /></div>

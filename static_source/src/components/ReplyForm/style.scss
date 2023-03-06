@@ -6,19 +6,21 @@
     flex-direction: column;
   }
 
-  &-content {
-    overflow: hidden;
-    textarea {
-      color: $black0;
-      font-size: 1rem;
-      width: 100%;
-      border: none;
-      border-radius: 3px;
-      overflow: auto;
-      outline: 0 none;
-      resize: none; /*remove the resize handle on the bottom right*/
+    &-content {
+      min-height: 2rem;
+      font-size: 0.9rem;
+      [contenteditable] {
+        &:focus {
+          outline: none;
+        }
+        &:empty:before {
+          content: attr(placeholder);
+          pointer-events: none;
+          color: $gray2;
+          display: block;
+        }
+      }
     }
-  }
   &-action {
     display: flex;
     align-self: flex-end;
