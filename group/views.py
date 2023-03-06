@@ -89,13 +89,15 @@ def group(request, group_id):
         "page": page,
         "total": group.topic_set.count()
     }
+    operations = []
+    if request.user == group.user:
+        operations = [
+            [f"/group/{group.id}/group_edit", '小组管理'],
+        ]
 
     sidebar_props = {
         "last_join_users": last_join_users,
-        "operations": [
-            # ['/members', '成员管理'],
-            [f"/group/{group.id}/group_edit", '小组管理'],
-        ]
+        "operations": operations
     }
 
     return render(request, "group/react_group.html", {
