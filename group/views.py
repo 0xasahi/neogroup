@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.http import JsonResponse
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
+from django.views.decorators.http import require_http_methods
 from mastodon.api import share_topic, share_comment
 from users.models import User
 from common.config import ITEMS_PER_PAGE
@@ -379,6 +380,7 @@ def profile(request, mastodon_username):
                                                   "comments": comments})
 
 
+@require_http_methods(["POST"])
 def like_comment(request, comment_id):
     if request.method == "POST":
         comment = Comment.objects.filter(id=comment_id).first()
