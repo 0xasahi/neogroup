@@ -3,7 +3,7 @@ import React from 'react';
 
 function GroupSidebar (props) {
     const {last_join_users, operations} = props;
-    const accounts = last_join_users.map(u => u.user.mastodon_account);
+    const accounts = last_join_users.map(u => u.user);
 
     return (
         <div className='sidebar'>
@@ -11,10 +11,10 @@ function GroupSidebar (props) {
             <div className='latest-join'>
                 {
                     accounts ? accounts.map((account) =>
-                        <a href={`/group/profile/${account.username}@${account.mastodon_site}/`} className='account'>
-                            <img src={account.avatar} className='account-avatar' />
+                        <a href={`/group/profile/${account.mastodon_username}/`} className='account'>
+                            <img src={account.mastodon_account.avatar} className='account-avatar' />
                             <div className='account-name'>
-                                {account.display_name}
+                                {account.mastodon_account.display_name}
                             </div>
                         </a>) : '这里冷清清的'
                 }
