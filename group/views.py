@@ -104,7 +104,8 @@ def group(request, group_id):
     return render(request, "group/react_group.html", {
         "title": group.name,
         "group_props": group_props,
-        "sidebar": sidebar_props
+        "sidebar": sidebar_props,
+        "group": group
     })
 
 
