@@ -20,7 +20,7 @@ export function getDisplayDate(date1, date2, exactMode = false) {
         return `${days}天前`;
       }
     } else {
-      return date2.toISOString().slice(0, 10);
+      return date1.toISOString().slice(0, 10);
     }
   }
 
