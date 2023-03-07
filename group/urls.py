@@ -1,5 +1,6 @@
 from django.urls import path
 from group.views import *
+from group.feeds import LatestTopicsFeed
 
 app_name = "group"
 urlpatterns = [
@@ -16,4 +17,5 @@ urlpatterns = [
     path("comment/<int:comment_id>/delete", delete_comment, name="delete_comment"),
     path("comment/<int:comment_id>/like", like_comment, name="like_comment"),
     path("profile/<str:mastodon_username>/", profile, name="profile"),
+    path("<int:group_id>/feed/", LatestTopicsFeed(), name="feed"),
 ]
