@@ -33,5 +33,11 @@ class LatestTopicsFeed(Feed):
     def item_description(self, item):
         return item.description
 
+    def item_pubdate(self, item):
+        return item.created_at
+
+    def item_author_name(self, item):
+        return item.user.mastodon_username
+
     def item_link(self, item):
         return reverse("group:topic", args=[item.id])

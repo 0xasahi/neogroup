@@ -23,7 +23,7 @@ function Author (props) {
                 <div className='topic-user' alt={mastodon_username}>
                     <div className="topic-user-username">
                         <span className="display-name"> {display_name} </span>
-                        <a href={url}  >
+                        <a href={`/group/profile/${mastodon_username}/`}>
                             <span class='mastodon-account'>{mastodon_username}</span>
                         </a>
 

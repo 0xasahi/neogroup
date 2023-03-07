@@ -2,6 +2,7 @@
 {% block extra_head %}
 <meta property="og:title" content="{{group.name}}">
 <meta property="og:description" name="description" content="{{group.description | truncatechars:100}}">
+<link rel="alternate" type="application/rss+xml" title="{{group.name}} RSS" href="{% url 'group:feed' group.id %}" />
 {% endblock %}
 
 {% load react %}

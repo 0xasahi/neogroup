@@ -11,7 +11,7 @@ function GroupSidebar (props) {
             <div className='latest-join'>
                 {
                     accounts ? accounts.map((account) =>
-                        <a href={account.url} className='account'>
+                        <a href={`/group/profile/${account.username}@${account.mastodon_site}/`} className='account'>
                             <img src={account.avatar} className='account-avatar' />
                             <div className='account-name'>
                                 {account.display_name}
