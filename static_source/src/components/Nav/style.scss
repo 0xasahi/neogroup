@@ -1,5 +1,5 @@
-@import '../../common/color.scss';
-@import '../../common/utils.scss';
+@import "../../common/color.scss";
+@import "../../common/utils.scss";
 
 .nav {
   display: flex;
@@ -7,10 +7,18 @@
   background: $purple0;
   color: $white;
   justify-content: center;
-  line-height: 2rem;
-  z-index: 10;
+  align-items: center;
+  font-size: 1.1rem;
   position: fixed;
+  height: 2.5rem;
   top: 0;
+  z-index: 10;
+
+  &.short {
+    transition: height 0.4s linear;
+    font-size: 0.9rem;
+    height: 1.8rem;
+  }
 
   &-wrapper {
     align-items: center;
@@ -19,39 +27,62 @@
     margin: auto;
     justify-content: space-between;
     width: min(95%, 1200px);
+    transition: transform 0.3s ease-out;
+
     @media screen and (max-width: 540px) {
       width: 100%;
       margin-left: 0.2rem;
     }
+
     &-left {
       display: flex;
       align-items: center;
-      .logo {
-        background-color: white;
-        border-radius: 50%;
-        margin-left: 0.5rem;
-        margin: 0.2rem 0;
+      width: 100%;
 
+      .nav-card {
+        display: none;
+        padding: 0.2rem;
+        color: white;
+        &.show {
+          display: flex;
+          align-items: center;
+        }
         img {
-          max-width: 2.5rem;
+          max-width: 2.2rem;
+          min-width: 2.2rem;
+          border-radius: 0.5rem;
           vertical-align: middle;
+          margin-right: 0.5rem;
+        }
+
+        &-subtitle {
+          &::before {
+            content: '>';
+            color: $white2;
+            margin-right: 0.2rem;
+          }
+          font-size: 0.65rem;
+          color: $white2;
         }
       }
 
       .title {
-        width: 85%;
-        font-size: 1.4rem;
-
-        @media (max-width: 540px) {
-          width: 70vw;
-          font-size: 1.3rem;
+        width: 80%;
+        display: none;
+        .up {
+          cursor: pointer;
+          height: 1.5rem;
+          &:before {
+            content: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+Cgo8IS0tIExpY2Vuc2U6IFBELiBNYWRlIGJ5IGxpbmVhLWlvOiBodHRwczovL2dpdGh1Yi5jb20vbGluZWEtaW8vTGluZWEtSWNvbnNldCAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAKCSB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4IiB2aWV3Qm94PSIwIDAgNjQgNjQiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDY0IDY0IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8cG9seWxpbmUgZmlsbD0id2hpdGUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVqb2luPSJiZXZlbCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludHM9IjE1LDQwIDMyLDIzIAoJCTQ5LDQwIAkiLz4KPC9nPgo8L3N2Zz4=");
+          }
         }
-        opacity: 0;
-        margin-left: 0.8rem;
-        @include line-clamp(1, 1.8);
+        .text {
+          @include line-clamp(1);
+        }
+
         &.show {
-          transition: all 0.2s ease;
-          opacity: 1;
+          display: flex;
+          align-items: center;
         }
       }
     }
@@ -77,7 +108,6 @@
     li a {
       color: $white;
       display: block;
-      font-size: 1rem;
       letter-spacing: 1px;
       margin: 0 10px;
       position: relative;
@@ -94,7 +124,7 @@
     /* Animated Bottom Line */
     li a:before,
     li a:after {
-      content: ' ';
+      content: " ";
       position: absolute;
       width: 0%;
       height: 1px;
@@ -127,14 +157,14 @@
     .nav-wrapper #menu {
       display: none;
     }
+
     .menuIcon {
-      cursor: pointer;
       display: block;
       position: fixed;
+      cursor: pointer;
       right: 0.6rem;
       width: 1.8rem;
-      top: 0.2rem;
-      height: 3rem;
+      height: 2rem;
       z-index: 14;
     }
 
@@ -142,26 +172,27 @@
     .icon-bars {
       background: $white;
       position: absolute;
-      left: 1px;
-      top: 45%;
+      top: 50%;
       height: 2px;
       width: 20px;
+
       &::before {
+        display: block;
         background: $white;
-        content: '';
-        position: absolute;
-        left: 0;
-        top: -8px;
+        content: "";
+        position: relative;
+        top: -7px;
         height: 2px;
         width: 20px;
       }
+
       &::after {
+        display: block;
         margin-top: 0px;
         background: $white;
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -8px;
+        content: "";
+        position: relative;
+        bottom: -6px;
         height: 2px;
         width: 20px;
       }
@@ -169,25 +200,26 @@
 
     /* Toggle Menu Icon */
     .menuIcon.toggle {
-      top: 1.2rem;
       height: 2rem;
 
       .icon-bars {
-        top: 5px;
         transform: translate3d(0, 5px, 0) rotate(135deg);
         transition-delay: 0.1s;
         transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
         &::before {
           top: 0;
           transition-delay: 0.1s;
           opacity: 0;
         }
+
         &::after {
-          top: 10px;
+          top: 8px;
           transform: translate3d(0, -10px, 0) rotate(-270deg);
           transition-delay: 0.1s;
           transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
+
         &.overlay {
           width: 20px;
           opacity: 0;
@@ -211,9 +243,11 @@
     width: 100vw;
     height: 100vh;
     transition: transform 0.2s ease-out;
+
     a {
       color: $purple3;
     }
+
     ul,
     li {
       display: block;

@@ -9,6 +9,7 @@
 
   .topics {
     width: 100%;
+
     &-hd {
       display: flex;
       justify-content: space-between;
@@ -29,16 +30,22 @@
             color: $gray2;
             text-align: center;
             padding: 0.3rem 0;
+            font-size: 0.8rem;
+
             a {
               @include line-clamp(2, 2);
             }
           }
+
           .topic-title {
+            font-size: 0.9rem;
             display: flex;
             flex-direction: row;
-            align-items: center;
+            align-items: flex-start;
             text-align: left;
+
             svg {
+              margin-top: 0.3rem;
               min-width: 1.2rem;
               max-width: 1.2rem;
               margin-right: 0.5rem;

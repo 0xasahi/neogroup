@@ -1,15 +1,13 @@
 import json
 from django.conf import settings
-from django.shortcuts import render, redirect
-from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.http import JsonResponse
+from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 from mastodon.api import share_topic, share_comment
-from users.models import User
 from common.config import ITEMS_PER_PAGE
+from users.models import User
 from group.models import Group, Topic, GroupMember, Comment, LikeComment
 from group.forms import TopicForm, GroupSettingsForm
 
@@ -101,8 +99,13 @@ def group(request, group_id):
         "operations": operations
     }
 
+    nav_props = {
+        "title": group.name,
+    }
+
     return render(request, "group/react_group.html", {
         "title": group.name,
+        "nav_props": nav_props,
         "group_props": group_props,
         "sidebar": sidebar_props,
         "group": group
@@ -226,6 +229,8 @@ def topic(request, topic_id):
                    for t in topic.group.topic_set.order_by("-id")[:5]]
 
     topic_props = topic.to_json()
+    group_json = topic.group.to_json()
+
     topic_props.update({
         "comments": comments,
         "is_member": is_member,
@@ -236,13 +241,24 @@ def topic(request, topic_id):
 
     sidebar_props = {
         "last_topics": last_topics,
-        "group": topic.group.to_json(),
+        "group": group_json
+    }
+
+    nav_props = {
+        "card": {
+            "url": group_json['absolute_url'],
+            "icon": group_json.get('icon_url', ''),
+            "name": group_json['name'] + '小组',
+        },
+        "title": topic.title,
     }
 
     return render(request, "group/react_topic.html", {
         "title": topic.title,
         "topic": topic_props,
-        "sidebar": sidebar_props})
+        "sidebar": sidebar_props,
+        "nav_props": nav_props
+    })
 
 
 def get_comments(request, topic_id):
