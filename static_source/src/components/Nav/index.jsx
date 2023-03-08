@@ -64,20 +64,21 @@ export const NavBar = (props) => {
             <div className='nav-wrapper'>
                 <div class='nav-wrapper-left'>
                     {
-                        card && <a className={cx("nav-card", {show: !titleVisible})} href={card.url} >
+                        card ? <a className={cx("nav-card", {show: !titleVisible})} href={card.url} >
                             <img className='nav-card-target' src={(card.icon && "/media/" + card.icon) || "/static/img/logo_blue.png"} />
                             <div className='nav-card-title'>
                                 {card.name}
                                 <div className="nav-card-subtitle">{'去看看'}</div>
-                            </div>
-                    </a>
+                            </div>  </a> : <a className="logo" href="/">
+                            <img src="/static/img/logo_blue.png" alt="neogrp" />
+                        </a>
                     }
                     <div
                         className={cx("title", {show: titleVisible})}
                         onClick={() => {
                             window.scrollTo(0, 0);
                         }}>
-                        <div className='up' />
+                        {card && <div className={cx("up", {show: card})} />}
                         <div className='text'>{title} </div>
                     </div>
                 </div>

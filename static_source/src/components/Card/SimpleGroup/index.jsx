@@ -21,7 +21,7 @@ function GroupCard (props) {
                 <div className='group-card-name'>
                     {name}
                 </div>
-                <div className='group-card-description'>
+                <div className='group-card-description p'>
                     {description}
                 </div>
             </div>

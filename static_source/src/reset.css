@@ -341,3 +341,6 @@ input[type=button] {
 	margin: 24px 0 24px;
 	border-top: solid 1px #ccc;
 }
+.p {
+	white-space: pre-wrap;
+}

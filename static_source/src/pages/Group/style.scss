@@ -6,6 +6,7 @@
   align-items: flex-start;
   width: 100%;
   flex-flow: column;
+  font-size: 0.9rem;
 
   .topics {
     width: 100%;
@@ -29,8 +30,8 @@
           td {
             color: $gray2;
             text-align: center;
-            padding: 0.3rem 0;
-            font-size: 0.8rem;
+            padding: 0.3rem 0.05rem;
+            font-size: 0.7rem;
 
             a {
               @include line-clamp(2, 2);
