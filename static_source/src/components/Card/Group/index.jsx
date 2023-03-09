@@ -68,7 +68,7 @@ function GroupCard (props) {
                 <span>
                     简介
                 </span>
-                <div className='group-description'>
+                <div className='group-description p'>
                     {description}
                 </div>
             </div>

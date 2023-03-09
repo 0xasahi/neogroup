@@ -80,7 +80,7 @@ function Topic (props) {
             </div>
             <Author {...user} showNote={true} authored_at={updated_at} />
             <div
-                className='topic-content'
+                className='topic-content p'
                 dangerouslySetInnerHTML={{
                     __html: DOMPurify.sanitize(html_content)
                 }}

@@ -46,7 +46,7 @@ function Comment (props) {
                     comment_reply &&
                     <Quote comment={comment_reply} />
                 }
-                <div className='comment-text'>
+                <div className='comment-text p'>
                     {content}
                 </div>
             </div>

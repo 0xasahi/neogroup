@@ -15,14 +15,11 @@
     background-color: $gray;
   }
   &-content {
-    margin-left: 3.6rem;
-  }
-  &-text {
-    white-space: pre-wrap;
+    margin-left: 3rem;
   }
   &-action {
     display: flex;
-    margin-left: 3.6rem;
+    margin-left: 3rem;
     margin-top: 1rem;
 
     .like {

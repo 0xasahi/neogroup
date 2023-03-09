@@ -41,18 +41,18 @@ a {
 }
 
 #content {
+  min-height: calc(100vh - 2.5rem);
   display: flex;
   max-width: min(95%, 1200px);
   @media screen and (max-width: 540px) {
     max-width: 100%;
   }
   margin: auto;
-  margin-top: 3rem;
+  margin-top: 2.4rem;
   justify-content: center;
   line-height: 1.7;
   font-size: 0.9rem;
   color: $black0;
-  min-height: calc(100vh - 3rem);
 
   #main {
     overflow: hidden;
