@@ -9,7 +9,7 @@
     &-content {
       min-height: 4rem;
       font-size: 0.9rem;
-      [contenteditable] {
+      &[contenteditable] {
         &:focus {
           outline: none;
         }
@@ -21,43 +21,9 @@
         }
       }
     }
+
   &-action {
     display: flex;
     align-self: flex-end;
-    .share-to-mastodon {
-      margin-right: 0.5rem;
-      cursor: pointer;
-      svg {
-        fill: $gray;
-      }
-      &.yes {
-        svg {
-          fill: $purple2;
-        }
-      }
-    }
-    .submit {
-      cursor: pointer;
-      color: $purple2;
-      border-radius: 8px;
-
-      padding: 0.2rem 0.4rem;
-      outline: none;
-      display: flex;
-      align-items: center;
-      svg {
-        fill: $purple2;
-      }
-
-      transition: all 0.2s ease-in-out;
-      &:hover,
-      &:focus,
-      &:active {
-        background-color: $purple2;
-        svg {
-          fill: $white;
-        }
-      }
-    }
   }
 }

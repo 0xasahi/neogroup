@@ -16,15 +16,15 @@ function UserCard (props) {
     } = mastodon_account;
 
     return (
-        <a href={url} class='user' target='_blank' rel='noopener noreferrer'>
+        <a href={url} className='user' target='_blank' rel='noopener noreferrer'>
             <img className='user-avatar' src={avatar} alt={acct} />
             <div className='user-info'>
-                <div class='user-name'>
+                <div className='user-name'>
                     {display_name}
                 </div>
-                <div class='user-account'>
-                    <strong class='user-id'>{acct}</strong>
-                    <span class='user-mastodon_site'>@{mastodon_site}</span>
+                <div className='user-account'>
+                    <strong className='user-id'>{acct}</strong>
+                    <span className='user-mastodon_site'>@{mastodon_site}</span>
                 </div>
             </div>
         </a>

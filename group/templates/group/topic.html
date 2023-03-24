@@ -7,11 +7,7 @@
 {% load react %}
 {% load static %}
 
-{% block title %}
-{{topic.title}}
-{% endblock %}
-
-{% block content %}
+{% block main %}
 {% react_render component="Topic" props=topic no_placeholder=1 %}
 {% endblock %}
 

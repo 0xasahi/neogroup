@@ -1,6 +1,5 @@
 import './style.scss';
 import React from 'react';
-import {ReplyIcon} from '../Comment'
 
 function Quote (props) {
     const {comment, onRemove} = props;

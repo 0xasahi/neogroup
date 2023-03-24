@@ -1,106 +1,3 @@
-/*
-	HTML5 Reset :: style.css
-	----------------------------------------------------------
-	We have learned much from/been inspired by/taken code where offered from:
-
-	Eric Meyer					:: https://meyerweb.com
-	HTML5 Doctor				:: https://html5doctor.com
-	and the HTML5 Boilerplate	:: https://html5boilerplate.com
-
--------------------------------------------------------------------------------*/
-
-/* Let's default this puppy out
--------------------------------------------------------------------------------*/
-
-html,
-body,
-body div,
-span,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-abbr,
-address,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-samp,
-small,
-strong,
-sub,
-sup,
-var,
-b,
-i,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-figure,
-footer,
-header,
-menu,
-nav,
-section,
-time,
-mark,
-audio,
-video,
-details,
-summary {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font-weight: normal;
-	vertical-align: baseline;
-	background: transparent;
-}
-
-article,
-aside,
-figure,
-footer,
-header,
-nav,
-section,
-details,
-summary {
-	display: block;
-}
-
-/* Handle box-sizing while better addressing child elements:
-   https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
 html {
 	box-sizing: border-box;
 }
@@ -111,15 +8,13 @@ html {
 	box-sizing: inherit;
 }
 
-/* consider resetting the default cursor: https://gist.github.com/murtaugh/5247154 */
-
-/* Responsive images and other embedded objects
-*/
 img,
 object,
 embed {
 	max-width: 100%;
 }
+
+
 
 /*
    Note: keeping IMG here will cause problems if you're using foreground images as sprites.
@@ -131,15 +26,16 @@ embed {
 }
 */
 
-/* force a vertical scrollbar to prevent a jumpy page */
-html {
-	overflow-y: scroll;
+blockquote {
+	border-left: 2px solid #ddd;
+	margin-left: 0;
+	margin-right: 0;
+	padding-left: 10px;
+	color: #aaa;
 }
 
-/* we use a lot of ULs that aren't bulleted.
-	don't forget to restore the bullets within content. */
-ul {
-	list-style: none;
+mark {
+	background-color: #5a47a533;
 }
 
 blockquote,
@@ -208,14 +104,17 @@ select {
 }
 
 pre {
-	white-space: pre;
-	/* CSS2 */
 	white-space: pre-wrap;
-	/* CSS 2.1 */
-	white-space: pre-line;
-	/* CSS 3 (and 2.1 as well, actually) */
 	word-wrap: break-word;
-	/* IE */
+	-webkit-overflow-scrolling: touch;
+	overflow-x: auto;
+	max-width: 100%;
+	min-width: 100px;
+	background: #f8f8f8;
+	color: #6a5c89;
+	padding: 20px;
+	box-shadow: 0 0 8px #6a5c8942;
+
 }
 
 input[type="radio"] {
@@ -224,14 +123,6 @@ input[type="radio"] {
 
 input[type="checkbox"] {
 	vertical-align: bottom;
-}
-
-.ie7 input[type="checkbox"] {
-	vertical-align: baseline;
-}
-
-.ie6 input {
-	vertical-align: text-bottom;
 }
 
 select,
@@ -282,6 +173,16 @@ samp {
 	font-family: monospace, sans-serif;
 }
 
+
+code {
+	padding: 0.2em 0.4em;
+	margin: 0;
+	font-size: 85%;
+	white-space: break-spaces;
+	background-color: rgba(175, 184, 193, 0.2);
+	border-radius: 6px;
+}
+
 /* hand cursor on clickable elements */
 .clickable,
 label,
@@ -307,16 +208,6 @@ input[type=button] {
 	overflow: visible;
 }
 
-/* scale images in IE7 more attractively */
-.ie7 img {
-	-ms-interpolation-mode: bicubic;
-}
-
-/* prevent BG image flicker upon hover
-   (commented out as usage is rare, and the filter syntax messes with some pre-processors)
-.ie6 html {filter: expression(document.execCommand("BackgroundImageCache", false, true));}
-*/
-
 /* let's clear some floats */
 .clearfix:before,
 .clearfix:after {
@@ -334,13 +225,13 @@ input[type=button] {
 	zoom: 1;
 }
 
-
 .divide {
 	height: 0;
 	width: 100%;
 	margin: 24px 0 24px;
 	border-top: solid 1px #ccc;
 }
+
 .p {
-	white-space: pre-wrap;
+	white-space: pre-line;
 }

@@ -15,7 +15,7 @@
     list-style: none;
     @media (hover: hover) and (pointer: fine) {
       a:hover {
-      background-color: $purple;
+      background-color: $purple2;
       color: $white;
     }
   }
@@ -59,7 +59,7 @@
   }
   li.active {
     a {
-      color: $purple;
+      color: $purple2;
       &:hover {
         background-color: $white2;
       }

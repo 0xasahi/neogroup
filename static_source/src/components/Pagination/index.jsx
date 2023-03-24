@@ -16,6 +16,7 @@ function Pagination (props) {
     const pageCount = Math.ceil(items.length / pageSize);
 
     const handlePageClick = (event) => onChange && onChange(event.selected + 1);
+    if(!total) return (<></>)
 
     return (
         <ReactPaginate

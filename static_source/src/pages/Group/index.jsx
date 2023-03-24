@@ -1,6 +1,6 @@
 import './style.scss';
 import React, {useState, useRef} from 'react';
-import {Group} from '../../components/Card';
+import {GroupCard} from '../../components/Card';
 import axiosInstance from '../../common/axios';
 import Pagination from '../../components/Pagination';
 import {getDisplayDate, useIsomorphicLayoutEffect} from '../../common/utils';
@@ -52,7 +52,7 @@ function GroupHome (props) {
 
     return (
         <div className='group'>
-            <Group {...group} is_member={is_member} />
+            <GroupCard {...group} is_member={is_member} />
             <div className='divide' />
             <div className="topics">
                 <div className="topics-hd">

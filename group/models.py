@@ -47,6 +47,10 @@ class Group(models.Model, SerializerMixin):
     def absolute_url(self):
         return settings.APP_WEBSITE + reverse("group:group", kwargs={"group_id": self.id})
 
+    @property
+    def display_name(self):
+        return self.name + '小组' if not self.name.endswith('组') else self.name
+
 
 class GroupMember(models.Model, SerializerMixin):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
