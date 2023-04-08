@@ -39,7 +39,7 @@ const ReplyForm = forwardRef((props, ref) => {
     }
 
     const onSubmit = () => {
-        let content = ref.current && ref.current.querySelector('[contentEditable]').innerText;
+        let content = ref.current && ref.current.querySelector('[contentEditable]').innerText.replaceAll('\n\n', '\n');
         if (!content) {
             alert('请输入一段文字再提交吧');
             return
