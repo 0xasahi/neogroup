@@ -64,9 +64,9 @@ function GroupHome (props) {
                 <table>
                     <tbody>
                         <tr>
-                            <th width="55%" className='topic-title'>讨论</th>
-                            <th width="25%">作者</th>
-                            <th width="20%">最后回应</th>
+                            <th width="60%" className='topic-title'>讨论</th>
+                            <th width="20%">作者</th>
+                            <th width="20%">回应</th>
                         </tr>
                         {
                             topics.map((topic) => (
