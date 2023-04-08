@@ -52,11 +52,11 @@ function Comment (props) {
             </div>
             <div className='comment-action'>
                 <Like targetId={id} liked={liked} likeCount={like_count} />
-                <div className='reply' onClick={() => onReply(props)}>
+                <div className='reply' onClick={() => onReply(props)} onTouchStart={() => onReply(props)} >
                     <ReplyIcon />
                 </div>
                 {is_owner &&
-                    <div className='delete' onClick={onDelete}>
+                    <div className='delete' onClick={onDelete} onTouchStart={onDelete}>
                         删除
                     </div>}
             </div>

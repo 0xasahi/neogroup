@@ -1,16 +1,25 @@
 import './style.scss';
-import React, {forwardRef, useState} from 'react';
+import React, {forwardRef, useEffect, useState} from 'react';
 import Quote from '../Quote';
 import axiosInstance from '../../common/axios';
 import {FediIcon, SendIcon} from '../../common/utils';
 
 
 const ReplyForm = forwardRef((props, ref) => {
-    const {replyComment, topicId} = props;
+    const {topicId} = props;
     const [replyState, setReplyState] = useState({
         sending: false,
         share_to_mastodon: true,
+        quote: props.replyComment,
     });
+
+    useEffect(() => {
+        setReplyState({
+            ...replyState,
+            quote: props.replyComment,
+        })
+    }, [props.replyComment]);
+
 
     const postComment = async (params) => {
         setReplyState({
@@ -47,7 +56,7 @@ const ReplyForm = forwardRef((props, ref) => {
         postComment({
             id: topicId,
             content: content,
-            comment_reply: replyComment?.id,
+            comment_reply: replyState.quote?.id,
             share_to_mastodon: replyState.share_to_mastodon,
         });
     }
@@ -62,12 +71,20 @@ const ReplyForm = forwardRef((props, ref) => {
     return (
         <div className='reply-form' ref={ref}>
             {
-                replyComment && <Quote comment={replyComment} />
+                replyState.quote && <Quote comment={replyState.quote} />
             }
-            <div className='reply-content' contentEditable placeholder='Neogrp 欢迎文明、友善的交流。' />
+            <div className='reply-content' contentEditable placeholder='Neogrp 欢迎文明、友善的交流。' onKeyDown={(e) => {
+                if (e.currentTarget.textContent === '' && (e.key === 'Backspace' || e.key === 'Delete')) {
+                    setReplyState(
+                        {
+                            ...replyState,
+                            quote: null,
+                        }
+                    )
+                }
+            }} />
             <div className={`reply-action${replyState.sending ? ' disabled' : ''}`} disabled={replyState.sending} >
-                <div className={`share-to-mastodon${replyState.share_to_mastodon ? ' yes' : ''}`}
-                    onClick={toggleShareToMastodon} >
+                <div className={`share-to-mastodon${replyState.share_to_mastodon ? ' yes' : ''}`} onClick={toggleShareToMastodon} >
                     <FediIcon />
                 </div>
                 <div className='submit' onClick={onSubmit} >
