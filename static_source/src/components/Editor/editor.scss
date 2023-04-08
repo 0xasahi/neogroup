@@ -151,7 +151,12 @@
     color: #d1d5db;
     cursor: pointer;
 
-    &:hover,
+    @media (hover: hover) {
+      &:hover {
+      color: #6b7280;
+      }
+  }
+
     &.active {
       color: #6b7280;
     }
