@@ -87,7 +87,7 @@ a {
     max-width: 100%;
     margin-top: 2.4rem;
     margin-bottom: 0;
-    height: calc(100vh - 2.4rem);
+    min-height: calc(100vh - 2.4rem);
   }
 
   justify-content: center;

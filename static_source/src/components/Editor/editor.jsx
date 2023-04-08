@@ -824,7 +824,7 @@ const NeoGrpEditor = (props) => {
                     onKeyDown={(event) => {
                         const key = event.key;
 
-                        if (key === "`") {
+                        if (key === "`" && event.ctrlKey) {
                             event.preventDefault();
                             const isCode = Editor.marks(editor).code;
                             Editor.addMark(editor, "code", !isCode);
