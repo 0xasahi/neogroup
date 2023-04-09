@@ -3,12 +3,10 @@
 
 body {
   margin: 0;
-  box-sizing: border-box;
   padding: 0;
+  box-sizing: border-box;
   background: $white;
-  font-family: system, -apple-system, 'PingfangSC', 'Hiragino Sans GB', Microsoft YaHei, Roboto, Helvetica, Arial,
-    sans-serif;
-
+  font-family: system, -apple-system, 'PingfangSC', 'Hiragino Sans GB', Microsoft YaHei, Roboto, Helvetica, Arial, sans-serif;
   font-size: 18px;
   @media screen and (max-width: 720px) {
     font-size: 15px;
@@ -18,17 +16,55 @@ body {
 .button {
   color: $white;
   height: 2rem;
-  padding: 0 0.7rem;
+  padding: 0 0.6rem;
   min-width: fit-content;
   border-radius: 0.5rem;
-  background-color: $purple0;
+  background-color: $purple;
   font-size: 1rem;
   text-align: center;
   line-height: 2rem;
   cursor: pointer;
-  border: 1px solid $purple;
+  border: 1px solid $purple2;
   &:hover {
-    color: $purple2;
+    color: $purple4;
+  }
+}
+
+.share-to-mastodon {
+  margin-right: 0.5rem;
+  cursor: pointer;
+  svg {
+    fill: $gray;
+  }
+  &.yes {
+    svg {
+      fill: $purple4;
+    }
+  }
+}
+
+
+.submit {
+  cursor: pointer;
+  color: $purple4;
+  border-radius: 8px;
+
+  padding: 0.2rem 0.4rem;
+  outline: none;
+  display: flex;
+  align-items: center;
+  svg {
+    fill: $purple4;
+  }
+
+  transition: all 0.2s ease-in-out;
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $purple4;
+    svg {
+      fill: $white;
+    }
   }
 }
 
@@ -36,26 +72,30 @@ a {
   color: $gray2;
   text-decoration: none;
   &:hover {
-    color: $purple2;
+    color: $purple4;
   }
 }
 
 #content {
-  min-height: calc(100vh - 2.5rem);
   display: flex;
   max-width: min(95%, 1200px);
+  margin: auto;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+
   @media screen and (max-width: 540px) {
     max-width: 100%;
+    margin-top: 2.4rem;
+    margin-bottom: 0;
+    min-height: calc(100vh - 2.4rem);
   }
-  margin: auto;
-  margin-top: 2.4rem;
+
   justify-content: center;
-  line-height: 1.7;
+  line-height: 1.6;
   font-size: 0.9rem;
   color: $black0;
 
-  #main {
-    overflow: hidden;
+  main {
     background-color: $white2;
     @media screen and (max-width: 720px) {
       width: 100%;
@@ -66,9 +106,9 @@ a {
     padding: 1.2rem 2.4rem;
   }
 
-  #sidebar {
+  sidebar {
     flex: auto;
-    margin: 0 1rem;
+    margin: 0 2rem;
     background-color: $white2;
     @media screen and (max-width: 540px) {
       display: none;

@@ -1,7 +1,12 @@
-import cx from "classnames";
-import React, {useState, useRef, useEffect} from "react";
-import {isBrowser, useIsomorphicLayoutEffect} from "../../common/utils";
+/*
+
+这个 navbar 不好看且不好用，在迁移成 sidenav 之前将就用着
+
+*/
 import "./style.scss";
+import cx from "classnames";
+import React, {useState, useRef} from "react";
+import {isBrowser, useIsomorphicLayoutEffect} from "../../common/utils";
 
 export const NavBar = (props) => {
     const {card, title, items} = props;
@@ -32,7 +37,7 @@ export const NavBar = (props) => {
         return () => window.removeEventListener("scroll", listenToScroll);
     });
 
-    useEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         const nav = navRef.current;
         const toggleIcon = toggleIconRef.current;
 
@@ -62,14 +67,14 @@ export const NavBar = (props) => {
     return (
         <div className={cx("nav", {short: titleVisible})}>
             <div className='nav-wrapper'>
-                <div class='nav-wrapper-left'>
+                <div className='nav-wrapper-left'>
                     {
                         card ? <a className={cx("nav-card", {show: !titleVisible})} href={card.url} >
                             <img className='nav-card-target' src={(card.icon && "/media/" + card.icon) || "/static/img/logo_blue.png"} />
                             <div className='nav-card-title'>
                                 {card.name}
                                 <div className="nav-card-subtitle">{'去看看'}</div>
-                            </div>  </a> : <a className="logo" href="/">
+                            </div></a> : <a className="logo" href="/">
                             <img src="/static/img/logo_blue.png" alt="neogrp" />
                         </a>
                     }
@@ -84,18 +89,22 @@ export const NavBar = (props) => {
                 </div>
                 <ul id='menu'>{menuItems}</ul>
             </div>
-            <div
-                className='menuIcon'
-                ref={toggleIconRef}>
-                <span className='icon icon-bars'></span>
-                <span className='icon icon-bars overlay'></span>
-            </div>
+            {
+                isBrowser() && <div
+                    className='menuIcon'
+                    ref={toggleIconRef}>
+                    <span className='icon icon-bars'></span>
+                    <span className='icon icon-bars overlay'></span>
+                </div>
 
-            <div
-                className='overlay-menu'
-                ref={navRef}>
-                <ul id='menu'>{menuItems}</ul>
-            </div>
+            }
+            {
+                isBrowser() && <div
+                    className='overlay-menu'
+                    ref={navRef}>
+                    <ul id='menu'>{menuItems}</ul>
+                </div>
+            }
         </div>
     );
 };

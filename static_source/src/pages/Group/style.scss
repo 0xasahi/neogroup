@@ -47,10 +47,14 @@
 
             svg {
               margin-top: 0.3rem;
+              margin-right: 0.3rem;
               min-width: 1.2rem;
               max-width: 1.2rem;
-              margin-right: 0.5rem;
             }
+          }
+
+          th:last-child, td:last-child {
+            text-align: end;
           }
         }
       }

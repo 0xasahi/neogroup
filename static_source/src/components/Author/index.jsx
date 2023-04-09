@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import DOMPurify from 'isomorphic-dompurify';
 import './style.scss';
 import {getDisplayDate} from '../../common/utils';
@@ -14,16 +15,16 @@ function Author (props) {
 
     return (
         <div className='author'>
-            <div className='left-side'>
+            <div className={classnames('left-side', {'center': showNote})}>
                 <a href={`/group/profile/${mastodon_username}/`} className='topic-author' >
-                    <img className="avatar" src={avatar} />
+                    <img alt={mastodon_username} className="avatar" src={avatar} />
                 </a>
             </div>
             <div className='right-side'>
                 <div className='topic-user' alt={mastodon_username}>
                     <div className="topic-user-username">
                         <span className="display-name"> {display_name} </span>
-                        <a class='mastodon-account'href={`/group/profile/${mastodon_username}/`}>
+                        <a className='mastodon-account'href={`/group/profile/${mastodon_username}/`}>
                             {mastodon_username}
                         </a>
 
@@ -35,7 +36,7 @@ function Author (props) {
                         }}
                     />}
                 </div>
-                <div className='authored-at' alt={authored_at} title={authored_at}>
+                <div className='authored-at' title={authored_at}>
                     {getDisplayDate(new Date(authored_at), new Date())}
                 </div>
             </div>

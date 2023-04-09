@@ -1,5 +1,5 @@
-@import '../../common/color.scss';
-@import '../../common/utils.scss';
+@import "../../common/color.scss";
+@import "../../common/utils.scss";
 
 .topic {
   display: flex;
@@ -9,7 +9,17 @@
 
   &-content {
     color: $black;
-    margin-left: 3rem;
+    padding-left: 3rem;
+    width: 100%;
+    letter-spacing: 0.8px;
+
+    img {
+      display: block;
+      margin: auto;
+      max-width: 100%;
+      min-width: 100px;
+      min-height: 100px;
+    }
   }
 
   .title {

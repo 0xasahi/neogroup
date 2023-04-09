@@ -1,0 +1,24 @@
+{% extends "group/react_base.html" %}
+
+{% load react %}
+{% load static %}
+
+{% block extra_head %}
+<meta property="og:title" content="在{{group.name}}发言">
+<meta property="og:description" name="description" content="{{group.description | truncatechars:100}}">
+<link rel="stylesheet" href="{% static 'react/editor.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="content">
+    <div id="editor-wrapper">
+    </div>
+</div>
+
+<script>
+var CONFIG = {
+    api: "{{  submit_api }}"
+}
+</script>
+<script type="module" src="{% static 'react/editor.js' %}" ></script>
+{% endblock %}

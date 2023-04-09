@@ -8,15 +8,10 @@
 {% load react %}
 {% load static %}
 
-{% block title %}
-{{title}}小组
-{% endblock %}
-
-{% block content %}
+{% block main %}
 {% react_render component="Group" props=group_props no_placeholder=1 %}
 {% endblock %}
 
 {% block sidebar %}
 {% react_render component="GroupSidebar" props=sidebar no_placeholder=1 %}
 {% endblock %}
-

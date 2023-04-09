@@ -1,6 +1,6 @@
 import './style.scss';
 import React, {useState, useRef} from 'react';
-import {Group} from '../../components/Card';
+import {GroupCard} from '../../components/Card';
 import axiosInstance from '../../common/axios';
 import Pagination from '../../components/Pagination';
 import {getDisplayDate, useIsomorphicLayoutEffect} from '../../common/utils';
@@ -16,8 +16,9 @@ const Bubble = ({number}) => {
 }
 
 function GroupHome (props) {
-    const {is_member, group, last_topics} = props;
+    const {group, last_topics} = props;
     const [topics, setTopics] = useState(last_topics || []);
+    const [isMember, setIsMember] = useState(props.is_member || false);
     const [page, setPage] = useState(props.page);
 
     const firstUpdate = useRef(true);
@@ -52,21 +53,30 @@ function GroupHome (props) {
 
     return (
         <div className='group'>
-            <Group {...group} is_member={is_member} />
+            <GroupCard {...group} isMember={isMember} onJoinStateChange={(state) => {
+                setIsMember(state)
+            }} />
             <div className='divide' />
             <div className="topics">
                 <div className="topics-hd">
                     <div className="topics-hd-label">
                         最近讨论
                     </div>
-                    <a className="topics-hd-add button" href={`/group/${group.id}/new_topic`}>发言</a>
+                    <a className="topics-hd-add button"
+                        onClick={(e) => {
+                            if (!isMember) {
+                                e.preventDefault();
+                                alert("加入小组后才可以发言")
+                            }
+                        }}
+                        href={`/group/${group.id}/new_topic`} >发言</a>
                 </div>
                 <table>
                     <tbody>
                         <tr>
-                            <th width="55%" className='topic-title'>讨论</th>
-                            <th width="25%">作者</th>
-                            <th width="20%">最后回应</th>
+                            <th width="60%" className='topic-title'>讨论</th>
+                            <th width="20%">作者</th>
+                            <th width="20%">回应</th>
                         </tr>
                         {
                             topics.map((topic) => (

@@ -1,4 +1,5 @@
 import json
+from functools import wraps
 from django.conf import settings
 from django.urls import reverse
 from django.http import JsonResponse
@@ -32,6 +33,15 @@ def render_relogin(request):
             ),
         },
     )
+
+
+def j_login_required(f):
+    @wraps(f)
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return error("请先登录")
+        return f(request, *args, **kwargs)
+    return wrapper
 
 
 def create(request):
@@ -100,11 +110,11 @@ def group(request, group_id):
     }
 
     nav_props = {
-        "title": group.name,
+        "title": group.display_name,
     }
 
-    return render(request, "group/react_group.html", {
-        "title": group.name,
+    return render(request, "group/group.html", {
+        "title": group.display_name,
         "nav_props": nav_props,
         "group_props": group_props,
         "sidebar": sidebar_props,
@@ -136,33 +146,56 @@ def new_topic(request, group_id):
                 "secondary_msg": "",
             },
         )
+
+    is_member = GroupMember.is_member(
+        request.user, topic_group) if request.user.is_authenticated else False
+
     if request.method == "POST":
-        form = TopicForm(request.POST)
-        if form.is_valid():
-            topic = form.save(commit=False)
-            topic.group = topic_group
-            topic.user = request.user
-            topic.type = 0
-            topic.save()
-            if form.cleaned_data["share_to_mastodon"]:
-                form.instance.save = lambda **args: None
-                form.instance.shared_link = None
-                if not share_topic(form.instance):
-                    return render_relogin(request)
-            return redirect("group:group", group_id=group_id)
-        else:
-            return render(
-                request,
-                "common/error.html",
-                {
-                    "msg": "必须填写话题标题和话题内容",
-                    "secondary_msg": "",
-                },
-            )
-    topic_form = TopicForm()
-    last_topics = topic_group.topic_set.order_by("-id")[:5]
-    return render(request, "group/new_topic.html", {"form": topic_form, "group": topic_group,
-                                                    "last_topics": last_topics})
+        if not is_member:
+            return error("你不是小组成员，不能参与话题讨论")
+
+        data = json.loads(request.body)
+        title = data.get("title")
+        description = data.get("content")
+        if not title or not description:
+            return error("标题和内容不能为空")
+
+        topic = Topic.objects.create(
+            user=request.user,
+            title=title.strip(),
+            description=description,
+            group=topic_group,
+        )
+        topic.type = 0
+        topic.save()
+        if data.get("share_to_mastodon"):
+            topic.save = lambda **args: None
+            topic.shared_link = None
+            share_topic(topic)
+
+        return success(
+            data={
+                'redirect_uri': topic.absolute_url
+            }
+        )
+
+    if not is_member:
+        return render(
+            request,
+            "common/error.html",
+            {
+                "msg": "你不是小组成员，不能参与话题讨论",
+                "secondary_msg": "",
+            },
+        )
+
+    return render(request, "group/react_new_topic.html", {
+        "group": topic_group,
+        "title": "在%s发新帖" % topic_group.display_name,
+        "submit_api": "/group/%s/new_topic" % topic_group.id,
+        "nav_props": {
+            "title":  "在%s发新帖" % topic_group.display_name},
+    })
 
 
 def topic(request, topic_id):
@@ -229,7 +262,7 @@ def topic(request, topic_id):
                    for t in topic.group.topic_set.order_by("-id")[:5]]
 
     topic_props = topic.to_json()
-    group_json = topic.group.to_json()
+    topic_group = topic.group
 
     topic_props.update({
         "comments": comments,
@@ -241,19 +274,19 @@ def topic(request, topic_id):
 
     sidebar_props = {
         "last_topics": last_topics,
-        "group": group_json
+        "group": topic_group.to_json()
     }
 
     nav_props = {
         "card": {
-            "url": group_json['absolute_url'],
-            "icon": group_json.get('icon_url', ''),
-            "name": group_json['name'] + '小组',
+            "url": topic_group.absolute_url,
+            "icon": str(topic_group.icon_url),
+            "name": topic_group.display_name,
         },
         "title": topic.title,
     }
 
-    return render(request, "group/react_topic.html", {
+    return render(request, "group/topic.html", {
         "title": topic.title,
         "topic": topic_props,
         "sidebar": sidebar_props,
@@ -405,8 +438,6 @@ def like_comment(request, comment_id):
             return error(
                 "评论不存在",
             )
-        if not request.user.is_authenticated:
-            return error("请先登录")
         if not comment.is_liked_by(request.user):
             liked = 1
             LikeComment.objects.create(user=request.user, comment=comment)

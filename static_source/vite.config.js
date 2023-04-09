@@ -1,11 +1,12 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { resolve } from "path";
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   define: {
-    'process.env': process.env,
+    "process.env": process.env,
   },
   terserOptions: {
     // 生产环境下移除console
@@ -15,15 +16,18 @@ export default defineConfig({
     }
   },
   build: {
-    lib: {
-      formats: ['cjs'],
-      entry: {
-        group: 'src/index.js',
+    emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        group: resolve(__dirname, "src/index.jsx"),
+        editor: resolve(__dirname, "src/components/Editor/editor.jsx"),
       },
-      name: 'group',
-      fileName: 'group',
+      output: {
+        dir: "../common/static/react/",
+        entryFileNames: "[name].js",
+        chunkFileNames: "[name].js",
+        assetFileNames: "[name].[ext]",
+      },
     },
-    outDir: '../common/static/react/',
-    rollupOptions: {},
   },
 });

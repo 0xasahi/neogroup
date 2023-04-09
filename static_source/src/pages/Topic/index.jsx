@@ -66,7 +66,7 @@ function Topic (props) {
                 comment.classList.add('highlight');
                 setTimeout(() => {
                     comment.classList.remove('highlight');
-                }, 1000);
+                }, 600);
             }
         }
     }, []);
@@ -80,7 +80,7 @@ function Topic (props) {
             </div>
             <Author {...user} showNote={true} authored_at={updated_at} />
             <div
-                className='topic-content p'
+                className='topic-content'
                 dangerouslySetInnerHTML={{
                     __html: DOMPurify.sanitize(html_content)
                 }}
