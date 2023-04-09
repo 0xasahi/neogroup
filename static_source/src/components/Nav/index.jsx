@@ -74,7 +74,7 @@ export const NavBar = (props) => {
                             <div className='nav-card-title'>
                                 {card.name}
                                 <div className="nav-card-subtitle">{'去看看'}</div>
-                            </div>  </a> : <a className="logo" href="/">
+                            </div></a> : <a className="logo" href="/">
                             <img src="/static/img/logo_blue.png" alt="neogrp" />
                         </a>
                     }

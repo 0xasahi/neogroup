@@ -1,4 +1,5 @@
 import json
+from functools import wraps
 from django.conf import settings
 from django.urls import reverse
 from django.http import JsonResponse
@@ -32,6 +33,15 @@ def render_relogin(request):
             ),
         },
     )
+
+
+def j_login_required(f):
+    @wraps(f)
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return error("请先登录")
+        return f(request, *args, **kwargs)
+    return wrapper
 
 
 def create(request):
@@ -167,6 +177,16 @@ def new_topic(request, group_id):
             data={
                 'redirect_uri': topic.absolute_url
             }
+        )
+
+    if not is_member:
+        return render(
+            request,
+            "common/error.html",
+            {
+                "msg": "你不是小组成员，不能参与话题讨论",
+                "secondary_msg": "",
+            },
         )
 
     return render(request, "group/react_new_topic.html", {
@@ -418,8 +438,6 @@ def like_comment(request, comment_id):
             return error(
                 "评论不存在",
             )
-        if not request.user.is_authenticated:
-            return error("请先登录")
         if not comment.is_liked_by(request.user):
             liked = 1
             LikeComment.objects.create(user=request.user, comment=comment)

@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './style.scss';
 import axiosInstance from '../../../common/axios';
 
 
 function GroupCard (props) {
-    const [joinState, setJoinState] = useState(props.is_member)
+    const [joinState, setJoinState] = useState(props.isMember)
     const {
         created_at,
         description,
@@ -14,7 +14,13 @@ function GroupCard (props) {
         updated_at,
         user,
         absolute_url,
+        onJoinStateChange
     } = props;
+
+    useEffect(() => {
+        onJoinStateChange && onJoinStateChange(joinState)
+    }, [joinState])
+
 
     return (
         <div className='group-card'>
