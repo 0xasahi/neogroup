@@ -160,7 +160,16 @@ const HOTKEYS = {
     'mod+u': 'underline',
     'mod+`': 'code',
     'mod+m': 'mark',
+    'mod+e': 'strikethrough',
 };
+
+const BLOCK_HOTKEYS = {
+    'mod+1': 'heading-one',
+    'mod+2': 'heading-two',
+    'mod+3': 'heading-three',
+    'mod+shift+`': 'pre',
+    'mod+q': 'quote',
+}
 
 const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify'];
@@ -824,14 +833,25 @@ const NeoGrpEditor = (props) => {
                     onKeyDown={(event) => {
                         const key = event.key;
 
-                        if (key === "`" && event.ctrlKey) {
-                            event.preventDefault();
-                            const isCode = Editor.marks(editor).code;
-                            Editor.addMark(editor, "code", !isCode);
-                            return;
+                        for (const hotkey in HOTKEYS) {
+                            if (isHotkey(hotkey, event)) {
+                                event.preventDefault();
+                                const mark = HOTKEYS[hotkey];
+                                toggleMark(editor, mark);
+                                return;
+                            }
                         }
 
-                        else if (key === " " && event.ctrlKey) {
+                        for (const hotkey in BLOCK_HOTKEYS) {
+                            if (isHotkey(hotkey, event)) {
+                                event.preventDefault();
+                                const block = BLOCK_HOTKEYS[hotkey];
+                                toggleBlock(editor, block);
+                                return;
+                            }
+                        }
+
+                        if (key === " " && event.ctrlKey) {
                             event.preventDefault();
                             Transforms.insertNodes(
                                 editor,
@@ -843,7 +863,8 @@ const NeoGrpEditor = (props) => {
                             return;
                         }
 
-                        else if (key === "Enter" && event.shiftKey) {
+
+                        else if (key === "Enter" && event.ctrlKey) {
                             event.preventDefault();
                             const newLine = {
                                 type: "paragraph",
@@ -855,6 +876,12 @@ const NeoGrpEditor = (props) => {
                                 ]
                             };
                             Transforms.insertNodes(editor, newLine);
+                            return;
+                        }
+
+                        else if (key === "Enter" && event.shiftKey) {
+                            event.preventDefault();
+                            Transforms.insertText(editor, "\n");
                             return;
                         }
 
@@ -890,7 +917,7 @@ const NeoGrpEditor = (props) => {
                             }
                         }
 
-                        else if (event.key === "Backspace") {
+                        else if (event.key === "Backspace" || event.key === "Delete") {
                             const {selection} = editor;
                             const [match] = Editor.nodes(editor, {
                                 match: n => n.type === 'image',
@@ -904,14 +931,6 @@ const NeoGrpEditor = (props) => {
                                 event.preventDefault();
                                 Transforms.move(editor, {reverse: true, distance: 1, unit: "character"});
                                 return;
-                            }
-                        }
-
-                        for (const hotkey in HOTKEYS) {
-                            if (isHotkey(hotkey, event)) {
-                                event.preventDefault();
-                                const mark = HOTKEYS[hotkey];
-                                toggleMark(editor, mark);
                             }
                         }
                     }}
