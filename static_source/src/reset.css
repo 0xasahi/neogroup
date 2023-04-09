@@ -15,16 +15,9 @@ embed {
 }
 
 
-
-/*
-   Note: keeping IMG here will cause problems if you're using foreground images as sprites.
-	 In fact, it *will* cause problems with Google Maps' controls at small size.
-	If this is the case for you, try uncommenting the following:
-
-#map img {
-		max-width: none;
+li+li {
+	margin-top: 0.25rem;
 }
-*/
 
 blockquote {
 	border-left: 2px solid #ddd;
